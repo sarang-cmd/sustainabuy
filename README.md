@@ -1,87 +1,83 @@
 # SustainaBuy
 
-SustainaBuy is a production-ready sustainable shopping comparison application. It helps users identify, score, and recommend products based on their sustainability impact rather than just price, utilizing AI scoring and transparent data breakdowns.
-
-## Tech Stack
-- **Frontend**: Next.js 15 (App Router), React 19, TypeScript
-- **Styling**: Tailwind CSS v4, Framer Motion (Animations), Lucide React (Icons)
-- **Backend**: Firebase (Authentication, Firestore)
-- **AI**: Perplexity AI (for Sustainability Scoring)
+SustainaBuy is a modern shopping companion that helps you make conscious choices by analyzing products for sustainability. Built with Next.js, Tailwind CSS (Glassmorphism), and Firebase.
 
 ## Features
-- **Glassmorphism UI**: Premium dark-mode design with translucent cards and smooth animations.
-- **AI Sustainability Scoring**: scores products 0-100 based on materials, manufacturing, and longevity.
-- **Smart Comparison**: Side-by-side product comparison view.
-- **Wishlist**: Save sustainable finds (synced with Firestore).
-- **Authentication**: Google and GitHub login support.
+- **AI-Powered Analysis**: Instant sustainability scores (0-100) based on materials and supply chain.
+- **Glassmorphism UI**: Premium, modern interface with dark mode by default.
+- **Product Search & Comparison**: Find and filter manufactured goods by eco-impact.
+- **Automatic Product Scanner**: "Scan" any product name to instantly generate an AI assessment and add it to the database.
+- **User Accounts & Wishlists**: Save favorite sustainable finds and track your impact.
+- **Comparison Tool**: View products side-by-side to make the best choice.
+
+## Tech Stack
+- **Frontend**: Next.js 14, React, TypeScript
+- **Styling**: Tailwind CSS v3 (Custom Palette: Jet Black, Cerulean, Tropical Teal)
+- **Backend**: Firebase (Auth, Firestore)
+- **Icons**: Lucide React
 
 ---
 
-## 🚀 Setup & Configuration Guide
+## 🚀 Setup Guide
 
-Follow these steps to configure and run the project locally.
+Follow these steps to get the project running locally.
 
-### 1. Clone & Install
+### 1. Prerequisites
+- Node.js 18+ installed
+- A Google account (for Firebase)
+
+### 2. Install Dependencies
 ```bash
-git clone <repository-url>
-cd SustainaBuy
 npm install
 ```
 
-### 2. Firebase Configuration
-1. Go to the [Firebase Console](https://console.firebase.google.com/).
-2. Create a new project (e.g., `sustainabuy-dev`).
-3. **Enable Authentication**:
-   - Go to **Build** > **Authentication** > **Sign-in method**.
-   - Enable **Google** and **GitHub** providers.
-4. **Enable Firestore**:
-   - Go to **Build** > **Firestore Database**.
-   - Click **Create Database**.
-   - Start in **Test Mode** (for development).
-5. **Get Config**:
-   - Go to **Project Settings** (gear icon).
-   - Scroll to "Your apps" and select Web `</>`.
-   - Register the app and copy the `firebaseConfig` object values.
+### 3. Firebase Configuration
+1. Go to [Firebase Console](https://console.firebase.google.com/) and create a new project.
+2. **Enable Authentication**:
+    - Go to **Build** > **Authentication** > **Get Started**.
+    - Enable **Google** and **GitHub** providers in the **Sign-in method** tab.
+3. **Create Firestore Database**:
+    - Go to **Build** > **Firestore Database** > **Create Database**.
+    - Start in **Test Mode** (allows read/write for development).
+4. **Get Config Keys**:
+    - Go to **Project Settings** (gear icon) > **General**.
+    - Scroll down to "Your apps" and select the Web icon (`</>`).
+    - Register the app and copy the `firebaseConfig` object values.
 
-### 3. Environment Variables
-Create a `.env.local` file in the root directory:
+### 4. Environment Variables
+1. Rename `.env.local.example` to `.env.local`:
+   ```bash
+   mv .env.local.example .env.local
+   # OR on Windows PowerShell
+   ren .env.local.example .env.local
+   ```
+2. Open `.env.local` and paste your Firebase keys:
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=AIzaSy...
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+   NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef
+   ```
+   > **Note**: Do not commit this file to GitHub. It is already in `.gitignore`.
 
-```bash
-cp .env.local.example .env.local
-```
-
-Open `.env.local` and fill in your Firebase keys and Perplexity API key:
-
-```env
-# Firebase Configuration
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-
-# Perplexity AI (Optional - Falls back to mock if missing)
-PERPLEXITY_API_KEY=your_perplexity_key
-```
-
-### 4. Run Development Server
+### 5. Run the Application
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+Open [http://localhost:3000](http://localhost:3000) to verify.
 
----
+### 6. Verify Features
+- **Auth**: Click "Log In" and try signing in with Google.
+- **Scan/Add**: Go to "Scan New" (or `/add-product`) and type a product name (e.g., "Bamboo Toothbrush") to populate the DB.
+- **Profile**: Click your avatar > "Account" to see your dashboard.
+- **Wishlist**: Heart an item and check `/wishlist`.
 
 ## Troubleshooting
+- **Firebase Error (auth/configuration-not-found)**: Ensure you enabled Authentication in the Firebase Console.
+- **Tailwind Styles Missing**: Check if `tailwind.config.ts` includes the correct paths.
+- **Icons not showing**: Ensure `lucide-react` is installed (`npm install lucide-react`).
 
-- **"Missing Firebase Config"**: Ensure all variables in `.env.local` start with `NEXT_PUBLIC_`. Restart the server after changing `.env` files.
-- **Auth Errors**: Ensure your domain (`localhost`) is added to "Authorized Domains" in Firebase Authentication settings.
-- **Styling Issues**: This project uses Tailwind v4. Ensure your VS Code extension is up to date.
-
-## Deployment
-This project is optimized for deployment on Vercel.
-1. Push to GitHub.
-2. Import project in Vercel.
-3. Add the environment variables from step 3 to Vercel's project settings.
-4. Deploy!
+## License
+MIT
