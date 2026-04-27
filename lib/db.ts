@@ -70,6 +70,7 @@ export interface Product extends ProductGroup {
     price: number;
     image: string;
     score: number;
+    rating?: number;
     breakdown: {
         materials: number;
         manufacturing: number;
