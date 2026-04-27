@@ -143,7 +143,7 @@ export async function getProduct(id: string): Promise<Product | null> {
     const numericId = parseInt(id.replace('demo-', ''));
     if (!isNaN(numericId) && (id.startsWith('demo-') || (numericId >= 1 && numericId <= 10))) {
         try {
-            const { DEMO_PRODUCTS } = (await import("./demo-data")) as any;
+            const { DEMO_PRODUCTS } = await import("./demo-data");
             const index = id.startsWith('demo-') ? numericId : (numericId - 1);
             const safeIndex = Math.max(0, Math.min(index, DEMO_PRODUCTS.length - 1));
             const product = DEMO_PRODUCTS[safeIndex];
@@ -154,9 +154,9 @@ export async function getProduct(id: string): Promise<Product | null> {
     }
 
     try {
-        // Skip Firestore if we know it's broken (optional optimization)
         const docRef = doc(db, "products", id);
         const docSnap = await getDoc(docRef);
+        
         if (docSnap.exists()) {
             const product = { id: docSnap.id, ...docSnap.data() } as Product;
 
@@ -165,7 +165,7 @@ export async function getProduct(id: string): Promise<Product | null> {
             const variantsSnap = await getDocs(variantsRef);
             product.variants = variantsSnap.docs.map(v => ({ id: v.id, ...v.data() } as ProductVariant));
 
-            // Fetch offers for the first variant (or all) if needed
+            // Fetch offers for the variants
             const offers: SellerOffer[] = [];
             for (const variant of product.variants) {
                 const offersRef = collection(db, "products", id, "variants", variant.id, "offers");
@@ -185,7 +185,7 @@ export async function getProduct(id: string): Promise<Product | null> {
         return null;
     } catch (error) {
         console.error("Error getting product, using fallback check:", error);
-        // Attempt to find in demo products by slug
+        // Attempt to find in demo products by slug fallback
         const { DEMO_PRODUCTS } = await import("./demo-data");
         const found = DEMO_PRODUCTS.find((p: any) => getProductSlug(p.name) === id);
         if (found) return { ...found, id } as Product;
