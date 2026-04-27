@@ -20,6 +20,15 @@ function ProductsContent() {
     const [searchTerm, setSearchTerm] = useState(queryParam);
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [loading, setLoading] = useState(true);
+
+    // Immediate local load for performance
+    useEffect(() => {
+        const { DEMO_PRODUCTS } = require("@/lib/demo-data");
+        const { getProductSlug } = require("@/lib/demo-data");
+        const initialProducts = DEMO_PRODUCTS.map((p: any) => ({ ...p, id: getProductSlug(p.name) }));
+        setProducts(initialProducts);
+        setLoading(false);
+    }, []);
     const [visibleCount, setVisibleCount] = useState(8);
     const [debouncedSearch, setDebouncedSearch] = useState(searchTerm);
     const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
@@ -322,7 +331,7 @@ function ProductsContent() {
                         )}
                     </div>
 
-                    {loading ? (
+                    {loading && products.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-40 space-y-6">
                             <div className="w-16 h-16 border-4 border-cerulean-500 border-t-transparent rounded-full animate-spin shadow-[0_0_30px_rgba(80,151,175,0.3)]" />
                             <div className="text-center">
