@@ -22,20 +22,20 @@ import { LiquidCard } from "@/components/ui/LiquidCard";
 
 export default function StatsPage() {
     const stats = [
-        { label: "Total Files", value: "84", icon: FileCode, color: "text-cerulean-400" },
-        { label: "Lines of Code", value: "14,520", icon: Code2, color: "text-tropical-teal-400" },
-        { label: "Development Time", value: "22h 30m", icon: Clock, color: "text-tea-green-400" },
-        { label: "Tech Stack", value: "Next.js 15", icon: Cpu, color: "text-cerulean-400" },
-        { label: "Components", value: "42", icon: Layers, color: "text-tropical-teal-400" },
-        { label: "Current Version", value: "v0.5.0", icon: Activity, color: "text-tea-green-400" }
+        { label: "Total Files", value: "72", icon: FileCode, color: "text-cerulean-400" },
+        { label: "Lines of Code", value: "11,240", icon: Code2, color: "text-tropical-teal-400" },
+        { label: "Development Time", value: "32h 15m", icon: Clock, color: "text-tea-green-400" },
+        { label: "Tech Stack", value: "Next.js 16.2", icon: Cpu, color: "text-cerulean-400" },
+        { label: "Components", value: "14", icon: Layers, color: "text-tropical-teal-400" },
+        { label: "Current Version", value: "v0.3.0", icon: Activity, color: "text-tea-green-400" }
     ];
 
     const techStack = [
-        { name: "Next.js 15", category: "Framework", status: "Stable", icon: Globe },
+        { name: "Next.js 16.2", category: "Framework", status: "Turbo", icon: Globe },
         { name: "TypeScript", category: "Language", status: "Strict", icon: Terminal },
         { name: "TailwindCSS", category: "Styling", status: "Optimized", icon: Palette },
         { name: "Framer Motion", category: "Animations", status: "Liquid", icon: Zap },
-        { name: "Firebase", category: "Backend", status: "Live", icon: Database },
+        { name: "Firebase 12", category: "Backend", status: "Live", icon: Database },
         { name: "Lucide React", category: "Icons", status: "Dynamic", icon: ShieldCheck }
     ];
 
@@ -147,16 +147,16 @@ export default function StatsPage() {
                             </h3>
                             <div className="space-y-6 font-mono text-[11px]">
                                 <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[19:30:12]</span>
-                                    <span className="text-gray-400">Release v0.5.0: STABLE</span>
+                                    <span className="text-cerulean-500 whitespace-nowrap">[21:23:42]</span>
+                                    <span className="text-gray-400">Production Release v0.3.0: PENDING DEPLOY</span>
                                 </div>
                                 <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[19:28:45]</span>
-                                    <span className="text-gray-400">Liquid Mode V2: ACTIVE</span>
+                                    <span className="text-cerulean-500 whitespace-nowrap">[21:20:15]</span>
+                                    <span className="text-gray-400">Optimizer V3 (Speed Boost): ACTIVE</span>
                                 </div>
                                 <div className="flex gap-4 text-tea-green-400 font-bold">
                                     <span className="whitespace-nowrap">[SYSTEM]</span>
-                                    <span>All modules healthy.</span>
+                                    <span>All modules healthy. Final build initiated.</span>
                                 </div>
                                 <div className="pt-4 mt-4 border-t border-white/5">
                                     <div className="flex items-center gap-2 text-tea-green-400 font-bold">
@@ -174,10 +174,10 @@ export default function StatsPage() {
                             </h3>
                             <div className="space-y-4">
                                 {[
-                                    { label: "Components", value: 42, color: "bg-cerulean-500" },
-                                    { label: "Contexts", value: 12, color: "bg-tropical-teal-500" },
-                                    { label: "Hooks & Libs", value: 25, color: "bg-tea-green-500" },
-                                    { label: "Assets", value: 21, color: "bg-gray-700" }
+                                    { label: "App Router", value: 31, color: "bg-cerulean-500" },
+                                    { label: "Components", value: 20, color: "bg-tropical-teal-500" },
+                                    { label: "Core Libs", value: 14, color: "bg-tea-green-500" },
+                                    { label: "Assets & Utils", value: 35, color: "bg-gray-700" }
                                 ].map((item, i) => (
                                     <div key={i} className="space-y-2">
                                         <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
