@@ -1,0 +1,97 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+    content: [
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                'jet-black': {
+                    50: '#eef4f6',
+                    100: '#ddeaee',
+                    200: '#bbd5dd',
+                    300: '#99c0cc',
+                    400: '#77abbb',
+                    500: '#5596aa',
+                    600: '#447888',
+                    700: '#335a66',
+                    800: '#223c44',
+                    900: '#111e22',
+                    950: '#0c1518',
+                },
+                'cerulean': {
+                    50: '#eef5f7',
+                    100: '#dceaef',
+                    200: '#b9d5df',
+                    300: '#96c1cf',
+                    400: '#73acbf',
+                    500: '#5097af',
+                    600: '#40798c',
+                    700: '#305b69',
+                    800: '#203c46',
+                    900: '#101e23',
+                    950: '#0b1518',
+                },
+                'tropical-teal': {
+                    50: '#eff5f5',
+                    100: '#dfecea',
+                    200: '#bfd9d5',
+                    300: '#9fc6c1',
+                    400: '#80b3ac',
+                    500: '#609f97',
+                    600: '#4d8079',
+                    700: '#39605b',
+                    800: '#26403c',
+                    900: '#13201e',
+                    950: '#0d1615',
+                },
+                'muted-teal': {
+                    50: '#eff5f0',
+                    100: '#e0ebe2',
+                    200: '#c1d7c4',
+                    300: '#a2c3a7',
+                    400: '#83af89',
+                    500: '#639c6c',
+                    600: '#507c56',
+                    700: '#3c5d41',
+                    800: '#283e2b',
+                    900: '#141f16',
+                    950: '#0e160f',
+                },
+                'tea-green': {
+                    50: '#f2f6ee',
+                    100: '#e4eedd',
+                    200: '#c9dcbc',
+                    300: '#aecb9a',
+                    400: '#94ba78',
+                    500: '#79a857',
+                    600: '#618745',
+                    700: '#486534',
+                    800: '#304323',
+                    900: '#182211',
+                    950: '#11180c',
+                },
+            },
+            fontFamily: {
+                sans: [
+                    "-apple-system",
+                    "BlinkMacSystemFont",
+                    "SF Pro Text",
+                    "Segoe UI",
+                    "Roboto",
+                    "Helvetica Neue",
+                    "Arial",
+                    "sans-serif"
+                ],
+            },
+            boxShadow: {
+                'liquid-glass': '0 8px 32px 0 rgba(0, 0, 0, 0.36)',
+            },
+        },
+    },
+    plugins: [],
+};
+export default config;
