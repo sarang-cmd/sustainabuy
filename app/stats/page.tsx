@@ -27,7 +27,7 @@ export default function StatsPage() {
         { label: "Development Time", value: "32h 15m", icon: Clock, color: "text-tea-green-400" },
         { label: "Tech Stack", value: "Next.js 16.2", icon: Cpu, color: "text-cerulean-400" },
         { label: "Components", value: "14", icon: Layers, color: "text-tropical-teal-400" },
-        { label: "Current Version", value: "v0.3.0", icon: Activity, color: "text-tea-green-400" }
+        { label: "Current Version", value: "v1.0.0", icon: Activity, color: "text-tea-green-400" }
     ];
 
     const techStack = [
