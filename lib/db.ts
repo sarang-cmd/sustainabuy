@@ -125,10 +125,6 @@ export async function updateUserProfile(uid: string, data: Partial<UserProfile>)
 export async function getWishlistProducts(productIds: string[]): Promise<Product[]> {
     if (!productIds || productIds.length === 0) return [];
 
-    // Firestore 'in' query supports max 10 items. For more, we'd need to batch or fetch individually.
-    // For simplicity in V1, we'll fetch individually if > 10, or just limit to 10.
-    // Implementing individual fetch for robustness here.
-
     const products: Product[] = [];
     for (const id of productIds) {
         const p = await getProduct(id);
@@ -204,9 +200,7 @@ export async function getAllProducts(category?: string): Promise<Product[]> {
 
         const querySnapshot = await getDocs(q);
         
-        // If empty, return some local demo data as fallback to prevent "empty app" feel
         if (querySnapshot.empty) {
-            console.log("No products in Firestore, returning demo fallback.");
             const { DEMO_PRODUCTS } = await import("./demo-data");
             return DEMO_PRODUCTS.map((p: any) => ({ ...p, id: getProductSlug(p.name) } as Product));
         }
@@ -216,15 +210,14 @@ export async function getAllProducts(category?: string): Promise<Product[]> {
             return {
                 id: doc.id,
                 ...data,
-                baseScore: data.baseScore || data.score, // Map old to new
-                thumbnail: data.thumbnail || data.image,   // Map old to new
-                score: data.score || data.baseScore,       // Ensure both exist
-                image: data.image || data.thumbnail        // Ensure both exist
+                baseScore: data.baseScore || data.score,
+                thumbnail: data.thumbnail || data.image,
+                score: data.score || data.baseScore,
+                image: data.image || data.thumbnail
             } as Product;
         });
     } catch (error) {
         console.error("Firestore error, using demo fallback:", error);
-        // Fallback to imported demo products
         try {
             const { DEMO_PRODUCTS } = await import("./demo-data");
             return DEMO_PRODUCTS.map((p: any) => ({ ...p, id: getProductSlug(p.name) } as Product));
@@ -243,9 +236,7 @@ export async function addProductToDb(productData: Omit<Product, "id" | "createdA
     });
 }
 
-// Auto-add / Scanner Logic
 export async function findOrAddProduct(name: string): Promise<Product | null> {
-    // 1. Check if exists
     const productsRef = collection(db, "products");
     const q = query(productsRef, where("name", "==", name), limit(1));
     const snapshot = await getDocs(q);
@@ -255,8 +246,6 @@ export async function findOrAddProduct(name: string): Promise<Product | null> {
         return { id: doc.id, ...doc.data() } as Product;
     }
 
-    // 2. Mock External Fetch & AI Scoring
-    // In a real app, you'd fetch metadata from an API like UPCitemdb or similar
     const mockExternalData: ProductData = {
         name: name,
         brand: "Generic Sustainable Brand",
@@ -268,10 +257,9 @@ export async function findOrAddProduct(name: string): Promise<Product | null> {
 
     const scoreData = await calculateSustainabilityScore(mockExternalData);
 
-    // 3. Create new product object
     const newProduct = {
         ...mockExternalData,
-        price: Math.floor(Math.random() * 100) + 20, // Mock price
+        price: Math.floor(Math.random() * 100) + 20,
         image: `https://source.unsplash.com/random/800x800?sustainable,${name}`,
         score: scoreData.total,
         baseScore: scoreData.total,
@@ -281,7 +269,6 @@ export async function findOrAddProduct(name: string): Promise<Product | null> {
         createdAt: Timestamp.now()
     };
 
-    // 4. Save to DB
     const docRef = await addDoc(productsRef, newProduct);
     return { id: docRef.id, ...newProduct } as Product;
 }
