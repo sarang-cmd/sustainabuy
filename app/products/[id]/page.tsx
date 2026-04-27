@@ -9,8 +9,8 @@ export async function generateStaticParams() {
     });
 }
 
-// Don't 404 on slugs added after build (user-synced products) in dev mode
-export const dynamicParams = true;
+// Required for output: export
+export const dynamicParams = false;
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
