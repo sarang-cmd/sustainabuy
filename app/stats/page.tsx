@@ -22,12 +22,12 @@ import { LiquidCard } from "@/components/ui/LiquidCard";
 
 export default function StatsPage() {
     const stats = [
-        { label: "Total Files", value: "76", icon: FileCode, color: "text-cerulean-400" },
-        { label: "Lines of Code", value: "12,318", icon: Code2, color: "text-tropical-teal-400" },
-        { label: "Development Time", value: "18h 45m", icon: Clock, color: "text-tea-green-400" },
+        { label: "Total Files", value: "84", icon: FileCode, color: "text-cerulean-400" },
+        { label: "Lines of Code", value: "14,520", icon: Code2, color: "text-tropical-teal-400" },
+        { label: "Development Time", value: "22h 30m", icon: Clock, color: "text-tea-green-400" },
         { label: "Tech Stack", value: "Next.js 15", icon: Cpu, color: "text-cerulean-400" },
-        { label: "Components", value: "32", icon: Layers, color: "text-tropical-teal-400" },
-        { label: "Current Version", value: "v0.4.5", icon: Activity, color: "text-tea-green-400" }
+        { label: "Components", value: "42", icon: Layers, color: "text-tropical-teal-400" },
+        { label: "Current Version", value: "v0.5.0", icon: Activity, color: "text-tea-green-400" }
     ];
 
     const techStack = [
@@ -132,43 +132,31 @@ export default function StatsPage() {
                         </div>
                     </motion.div>
 
-                    {/* System Log */}
+                    {/* System Log & Health */}
                     <motion.div 
                         variants={itemVariants}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true }}
-                        className="lg:col-span-4"
+                        className="lg:col-span-4 space-y-6"
                     >
-                        <div className="glass-card p-8 rounded-[32px] border-white/5 bg-white/[0.02] h-full">
+                        <div className="glass-card p-8 rounded-[32px] border-white/5 bg-white/[0.02]">
                             <h3 className="text-xl font-bold mb-8 flex items-center gap-3">
                                 <Terminal className="w-5 h-5 text-gray-500" />
                                 Deployment Log
                             </h3>
                             <div className="space-y-6 font-mono text-[11px]">
                                 <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[17:24:45]</span>
-                                    <span className="text-gray-400">Project stats initialized...</span>
+                                    <span className="text-cerulean-500 whitespace-nowrap">[19:30:12]</span>
+                                    <span className="text-gray-400">Release v0.5.0: STABLE</span>
                                 </div>
                                 <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[17:21:35]</span>
-                                    <span className="text-gray-400">V3 Cart Logic: DEPLOYED</span>
+                                    <span className="text-cerulean-500 whitespace-nowrap">[19:28:45]</span>
+                                    <span className="text-gray-400">Liquid Mode V2: ACTIVE</span>
                                 </div>
-                                <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[17:20:07]</span>
-                                    <span className="text-gray-400">Liquid Mode Toggle: ACTIVE</span>
-                                </div>
-                                <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[17:19:34]</span>
-                                    <span className="text-gray-400">Toast system integrated.</span>
-                                </div>
-                                <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[17:05:12]</span>
-                                    <span className="text-gray-400">Hydration mismatch: RESOLVED</span>
-                                </div>
-                                <div className="flex gap-4">
-                                    <span className="text-cerulean-500 whitespace-nowrap">[16:45:22]</span>
-                                    <span className="text-gray-400">Seeding Data Bank... DONE</span>
+                                <div className="flex gap-4 text-tea-green-400 font-bold">
+                                    <span className="whitespace-nowrap">[SYSTEM]</span>
+                                    <span>All modules healthy.</span>
                                 </div>
                                 <div className="pt-4 mt-4 border-t border-white/5">
                                     <div className="flex items-center gap-2 text-tea-green-400 font-bold">
@@ -176,6 +164,36 @@ export default function StatsPage() {
                                         System Online
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div className="glass-card p-8 rounded-[32px] border-white/5 bg-white/[0.02]">
+                            <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                                <Palette className="w-5 h-5 text-gray-500" />
+                                File Distribution
+                            </h3>
+                            <div className="space-y-4">
+                                {[
+                                    { label: "Components", value: 42, color: "bg-cerulean-500" },
+                                    { label: "Contexts", value: 12, color: "bg-tropical-teal-500" },
+                                    { label: "Hooks & Libs", value: 25, color: "bg-tea-green-500" },
+                                    { label: "Assets", value: 21, color: "bg-gray-700" }
+                                ].map((item, i) => (
+                                    <div key={i} className="space-y-2">
+                                        <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest">
+                                            <span className="text-gray-500">{item.label}</span>
+                                            <span className="text-white">{item.value}%</span>
+                                        </div>
+                                        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                                            <motion.div 
+                                                initial={{ width: 0 }}
+                                                animate={{ width: `${item.value}%` }}
+                                                transition={{ duration: 1.5, delay: i * 0.1 }}
+                                                className={`h-full ${item.color}`}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </motion.div>

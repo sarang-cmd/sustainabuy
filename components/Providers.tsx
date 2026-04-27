@@ -10,15 +10,15 @@ import { UIProvider } from '@/contexts/UIContext';
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
         <AuthProvider>
-            <CartProvider>
+            <UIProvider>
                 <ToastProvider>
-                    <WishlistProvider>
-                        <UIProvider>
+                    <CartProvider>
+                        <WishlistProvider>
                             {children}
-                        </UIProvider>
-                    </WishlistProvider>
+                        </WishlistProvider>
+                    </CartProvider>
                 </ToastProvider>
-            </CartProvider>
+            </UIProvider>
         </AuthProvider>
     );
 }

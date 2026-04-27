@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Product } from "@/lib/db";
+import { useToast } from "./ToastContext";
 
 interface CartItem extends Product {
     quantity: number;
@@ -29,6 +30,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [isOpen, setIsOpen] = useState(false);
+    const { showToast } = useToast();
 
     // Load from LocalStorage
     useEffect(() => {
@@ -65,6 +67,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             };
             return [...prev, newItem];
         });
+        showToast(`Added ${product.name} to cart`, "success");
         // Auto-open cart for feedback
         setIsOpen(true);
     };

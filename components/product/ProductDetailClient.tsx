@@ -17,8 +17,9 @@ import {
     Zap,
     Box,
     Truck,
-    RefreshCw
-} from "lucide-react";
+    RefreshCw,
+    X
+} from \"lucide-react\";
 import Link from "next/link";
 import { Product } from "@/lib/db";
 import { MultiStageLoader } from "@/components/ui/MultiStageLoader";
@@ -38,6 +39,7 @@ export function ProductDetailClient({ id }: ProductDetailClientProps) {
     const { toggleWishlist, isInWishlist } = useWishlist();
     
     const [product, setProduct] = useState<Product | null>(null);
+    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedSeller, setSelectedSeller] = useState("EcoStride");
@@ -346,10 +348,88 @@ export function ProductDetailClient({ id }: ProductDetailClientProps) {
                                     Add to Collection
                                 </span>
                             </Button>
-                            <Button variant="secondary" size="lg" className="w-16 h-16 flex items-center justify-center p-0">
-                                <Info className="w-6 h-6" />
+                            <Button 
+                                variant=\"secondary\" 
+                                size=\"lg\" 
+                                className=\"w-16 h-16 flex items-center justify-center p-0\"
+                                onClick={() => setIsInfoModalOpen(true)}
+                            >
+                                <Info className=\"w-6 h-6\" />
                             </Button>
                         </motion.div>
+
+                        <AnimatePresence>
+                            {isInfoModalOpen && (
+                                <>
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        onClick={() => setIsInfoModalOpen(false)}
+                                        className=\"fixed inset-0 bg-black/60 backdrop-blur-md z-[10000]\"
+                                    />
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                                        className=\"fixed inset-0 m-auto w-full max-w-2xl h-fit bg-jet-black-950 border border-white/10 rounded-[40px] z-[10001] overflow-hidden shadow-2xl\"
+                                    >
+                                        <div className=\"p-12 relative\">
+                                            <button 
+                                                onClick={() => setIsInfoModalOpen(false)}
+                                                className=\"absolute top-8 right-8 p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 transition-all\"
+                                            >
+                                                <X className=\"w-5 h-5\" />
+                                            </button>
+
+                                            <div className=\"flex items-center gap-4 mb-8\">
+                                                <div className=\"p-3 bg-cerulean-500/20 rounded-2xl text-cerulean-400\">
+                                                    <ShieldCheck className=\"w-8 h-8\" />
+                                                </div>
+                                                <div>
+                                                    <h2 className=\"text-3xl font-black text-white\">Sustainability Disclosure</h2>
+                                                    <p className=\"text-xs text-gray-500 uppercase tracking-widest font-bold mt-1\">Verified Transparency Report</p>
+                                                </div>
+                                            </div>
+
+                                            <div className=\"space-y-8\">
+                                                <p className=\"text-gray-400 leading-relaxed\">
+                                                    This score represents a comprehensive Life Cycle Assessment (LCA) performed by our AI engines, cross-referenced with global sustainability databases.
+                                                </p>
+
+                                                <div className=\"grid grid-cols-1 md:grid-cols-2 gap-6\">
+                                                    {Object.entries(product.breakdown || {}).map(([key, value]) => (
+                                                        <div key={key} className=\"p-6 rounded-3xl bg-white/5 border border-white/10\">
+                                                            <div className=\"flex justify-between items-end mb-4\">
+                                                                <span className=\"text-[10px] font-black uppercase tracking-widest text-cerulean-500\">{key}</span>
+                                                                <span className=\"text-xl font-black text-white\">{value}%</span>
+                                                            </div>
+                                                            <div className=\"h-2 bg-black/40 rounded-full overflow-hidden\">
+                                                                <motion.div 
+                                                                    initial={{ width: 0 }}
+                                                                    animate={{ width: `${value}%` }}
+                                                                    className=\"h-full bg-cerulean-500\"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+
+                                                <div className=\"p-8 rounded-3xl bg-tea-green-500/10 border border-tea-green-500/20\">
+                                                    <div className=\"flex items-center gap-3 mb-4 text-tea-green-400\">
+                                                        <Zap className=\"w-5 h-5\" />
+                                                        <span className=\"font-bold uppercase tracking-widest text-xs\">AI Insight</span>
+                                                    </div>
+                                                    <p className=\"text-sm text-tea-green-300/80 leading-relaxed italic\">
+                                                        \"This product excels in circularity. Its 'Take-Back' program ensures that 95% of its components can be reclaimed for new manufacturing cycles, significantly reducing landfill impact.\"
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </>
+                            )}
+                        </AnimatePresence>
 
                         {/* Reassurance Bars */}
                         <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4 pt-4">

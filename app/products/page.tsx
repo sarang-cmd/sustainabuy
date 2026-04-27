@@ -237,7 +237,7 @@ function ProductsContent() {
                     </div>
 
                     {/* Categories */}
-                    <div className="flex overflow-x-auto pb-4 gap-4 no-scrollbar">
+                    <div className=\"flex overflow-x-auto py-6 -my-6 gap-4 no-scrollbar\">
                         {categories.map((category, idx) => (
                             <motion.button
                                 key={category}
@@ -246,8 +246,8 @@ function ProductsContent() {
                                 transition={{ delay: idx * 0.05 }}
                                 onClick={() => setSelectedCategory(category)}
                                 className={`px-8 py-3 rounded-2xl text-sm font-bold whitespace-nowrap transition-all duration-300 border ${selectedCategory === category
-                                    ? "bg-cerulean-500 border-cerulean-400 text-white shadow-xl shadow-cerulean-500/30 scale-105"
-                                    : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10"
+                                    ? \"bg-cerulean-500 border-cerulean-400 text-white shadow-[0_10px_30px_-10px_rgba(59,130,246,0.5)] scale-105\"
+                                    : \"bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10\"
                                     }`}
                             >
                                 {category}

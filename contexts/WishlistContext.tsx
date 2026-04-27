@@ -34,16 +34,14 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     }, [wishlist]);
 
     const toggleWishlist = (product: Product) => {
-        setWishlist(prev => {
-            const exists = prev.some(item => item.id === product.id);
-            if (exists) {
-                showToast(`Removed ${product.name} from favorites`, "info");
-                return prev.filter(item => item.id !== product.id);
-            } else {
-                showToast(`Added ${product.name} to favorites`, "success");
-                return [...prev, product];
-            }
-        });
+        const exists = wishlist.some(item => item.id === product.id);
+        if (exists) {
+            setWishlist(prev => prev.filter(item => item.id !== product.id));
+            showToast(`Removed ${product.name} from favorites`, "info");
+        } else {
+            setWishlist(prev => [...prev, product]);
+            showToast(`Added ${product.name} to favorites`, "success");
+        }
     };
 
     const isInWishlist = (productId: string) => {
