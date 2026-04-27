@@ -7,27 +7,31 @@ export async function generateStaticParams() {
     try {
         const products = await getAllProducts();
 
-        // If no products in DB yet, return demo IDs to allow build/dev to proceed
-        if (products.length === 0) {
-            return [
-                { id: "everleaf-runner-pro" },
-                { id: "recycled-denim-jacket" },
-                { id: "bamboo-organic-tee" },
-                { id: "solar-charging-backpack" },
-                { id: "ethically-sourced-coffee" },
-                { id: "sustainable-smartphone-case" },
-                { id: "organic-cotton-bedding-set" },
-                { id: "zero-waste-shaving-kit" }
-            ];
+        // Fallback demo IDs to ensure paths exist for output: export
+        const demoIds = [
+            "everleaf-runner-pro",
+            "recycled-denim-jacket",
+            "bamboo-organic-tee",
+            "solar-charging-backpack",
+            "ethically-sourced-coffee",
+            "sustainable-smartphone-case",
+            "organic-cotton-bedding-set",
+            "zero-waste-shaving-kit"
+        ];
+
+        if (!products || products.length === 0) {
+            return demoIds.map(id => ({ id }));
         }
 
-        return products.map((product) => ({
+        const productIds = products.map((product) => ({
             id: product.id,
         }));
+
+        // Combine both to be safe
+        return [...productIds, ...demoIds.map(id => ({ id }))];
     } catch (error) {
         console.error("Error generating static params:", error);
-        // Fallback IDs for build stability
-        return [{ id: "1" }, { id: "2" }];
+        return [{ id: "everleaf-runner-pro" }];
     }
 }
 

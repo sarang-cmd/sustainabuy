@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { Search, Filter, ScanLine, RotateCcw, Leaf } from "lucide-react";
+import { Search, Filter, ScanLine, RotateCcw, Leaf, Globe, Sparkles, Database } from "lucide-react";
 import { getAllProducts, Product } from "@/lib/db";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -23,6 +23,8 @@ function ProductsContent() {
     const [visibleCount, setVisibleCount] = useState(8);
     const [debouncedSearch, setDebouncedSearch] = useState(searchTerm);
     const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
+    const [globalResults, setGlobalResults] = useState<any[]>([]);
+    const [isSearchingGlobal, setIsSearchingGlobal] = useState(false);
 
     const trendingBrands = [
         { name: "Allbirds", icon: "🌿", description: "Natural Materials" },
@@ -100,6 +102,20 @@ function ProductsContent() {
         );
     });
 
+    const handleGlobalSearch = async () => {
+        if (!searchTerm) return;
+        setIsSearchingGlobal(true);
+        try {
+            const response = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`);
+            const data = await response.json();
+            setGlobalResults(data.results || []);
+        } catch (error) {
+            console.error("Global search failed:", error);
+        } finally {
+            setIsSearchingGlobal(false);
+        }
+    };
+
     // Recommendations logic: Top 4 products with highest scores, prioritized by "Verified" status
     const recommendedProducts = [...products]
         .sort((a, b) => {
@@ -170,6 +186,23 @@ function ProductsContent() {
                                         <span>Add Product</span>
                                     </Button>
                                 </Link>
+                                <Button
+                                    variant="secondary"
+                                    className="h-14 w-14 !p-0 !rounded-2xl border-white/10 hover:bg-white/5"
+                                    onClick={async () => {
+                                        const { syncWithOpenFoodFacts } = await import('@/lib/data-bank-sync');
+                                        const result = await syncWithOpenFoodFacts();
+                                        if (result.success) {
+                                            alert(`Successfully synced ${result.count} products from Open Food Facts!`);
+                                            window.location.reload();
+                                        } else {
+                                            alert("Sync failed. Check console for details.");
+                                        }
+                                    }}
+                                    title="Sync with Open Food Facts"
+                                >
+                                    <Database className="h-5 w-5" />
+                                </Button>
                                 <Button
                                     variant="secondary"
                                     className="h-14 w-14 !p-0 !rounded-2xl border-white/10 hover:bg-white/5"
@@ -312,31 +345,78 @@ function ProductsContent() {
                         </div>
                     )}
 
-                    {!loading && filteredProducts.length === 0 && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="text-center py-40 bg-white/[0.02] rounded-[40px] border border-dashed border-white/10 backdrop-blur-sm"
-                        >
-                            <div className="mx-auto w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-8">
-                                <Search className="h-10 w-10 text-gray-600" />
+                {/* Global Search Results (The Indexer) */}
+                {globalResults.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-32"
+                    >
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="p-3 bg-cerulean-500/20 rounded-xl text-cerulean-400">
+                                <Globe className="h-6 w-6" />
                             </div>
-                            <h3 className="text-3xl font-bold text-white mb-3">No findings match</h3>
-                            <p className="text-gray-500 max-w-sm mx-auto mb-10 text-lg">We couldn't find any sustainable products matching your current discovery filters.</p>
+                            <div>
+                                <h2 className="text-3xl font-bold text-white tracking-tight">Global Index Results</h2>
+                                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1 font-bold">Real-time findings from the web</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {globalResults.map((result, idx) => (
+                                <ProductCard 
+                                    key={`global-${idx}`} 
+                                    id={`global-${idx}`}
+                                    name={result.name}
+                                    brand={result.brand}
+                                    price={result.price}
+                                    image={result.image}
+                                    score={85} // Mock score for scraped items
+                                />
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
+                {!loading && filteredProducts.length === 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center py-40 bg-white/[0.02] rounded-[40px] border border-dashed border-white/10 backdrop-blur-sm"
+                    >
+                        <div className="mx-auto w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-8">
+                            <Search className="h-10 w-10 text-gray-600" />
+                        </div>
+                        <h3 className="text-3xl font-bold text-white mb-3">No findings match</h3>
+                        <p className="text-gray-500 max-w-sm mx-auto mb-10 text-lg">We couldn't find any sustainable products matching your current discovery filters.</p>
+                        <div className="flex flex-col items-center gap-6">
                             <div className="flex justify-center gap-4">
                                 <Button
                                     variant="secondary"
-                                    onClick={() => { setSearchTerm(""); setSelectedCategory("All"); }}
+                                    onClick={() => { setSearchTerm(""); setSelectedCategory("All"); setGlobalResults([]); }}
                                     className="!rounded-xl px-8"
                                 >
                                     Reset Discovery
                                 </Button>
-                                <Link href="/add-product">
-                                    <Button className="bg-cerulean-500 !rounded-xl px-8 shadow-xl shadow-cerulean-500/20">Contribute Findings</Button>
-                                </Link>
+                                <Button
+                                    onClick={handleGlobalSearch}
+                                    disabled={isSearchingGlobal || !searchTerm}
+                                    className="bg-cerulean-500 !rounded-xl px-8 shadow-xl shadow-cerulean-500/20 flex items-center gap-2"
+                                >
+                                    {isSearchingGlobal ? (
+                                        <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                    ) : (
+                                        <Globe className="h-4 w-4" />
+                                    )}
+                                    Search the Whole Web
+                                </Button>
                             </div>
-                        </motion.div>
-                    )}
+                            <p className="text-[10px] text-gray-600 uppercase tracking-widest">
+                                <Sparkles className="inline h-3 w-3 mr-1" />
+                                Our AI Indexer will scan the internet for you
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
                 </div>
             </div>
         </div>
