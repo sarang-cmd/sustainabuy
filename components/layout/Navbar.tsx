@@ -58,9 +58,10 @@ export function Navbar() {
                                 name="search"
                                 type="text"
                                 placeholder="Search products..."
+                                suppressHydrationWarning
                                 className="bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cerulean-500/50 w-48 transition-all group-hover:bg-white/10"
                             />
-                            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2">
+                            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2" suppressHydrationWarning>
                                 <Search className="h-4 w-4 text-gray-500 group-hover:text-cerulean-400 transition-colors" />
                             </button>
                         </form>

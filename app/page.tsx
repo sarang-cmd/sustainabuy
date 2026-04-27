@@ -138,6 +138,7 @@ export default function Home() {
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     placeholder="Search for sustainable sneakers, brands, etc..."
+                                    suppressHydrationWarning
                                     className="w-full bg-transparent border-none text-white text-lg placeholder-gray-500 focus:ring-0 px-6 py-4 font-medium outline-none"
                                 />
                                 <Button type="submit" className="hidden" aria-hidden="true">
@@ -146,6 +147,7 @@ export default function Home() {
                             </form>
                             <Button
                                 onClick={() => searchQuery.trim() && router.push(`/products?q=${encodeURIComponent(searchQuery)}`)}
+                                suppressHydrationWarning
                                 className="w-full md:w-auto !rounded-xl px-10 py-7 text-lg shadow-lg shadow-cerulean-500/30 hover:scale-[1.02] active:scale-95 transition-all"
                             >
                                 Search
@@ -262,8 +264,8 @@ export default function Home() {
                             Get weekly sustainability tips, exclusive eco-friendly deals, and updates on the latest green innovations.
                         </p>
                         <div className="max-w-lg mx-auto flex gap-4">
-                            <Input placeholder="Enter your email" className="bg-jet-black-950/50 h-14 text-lg" />
-                            <Button size="lg" className="h-14 px-8 text-lg">Subscribe</Button>
+                            <Input placeholder="Enter your email" suppressHydrationWarning className="bg-jet-black-950/50 h-14 text-lg" />
+                            <Button size="lg" suppressHydrationWarning className="h-14 px-8 text-lg">Subscribe</Button>
                         </div>
                     </LiquidCard>
                 </motion.div>

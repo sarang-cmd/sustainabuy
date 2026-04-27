@@ -1,0 +1,38 @@
+[debug] [2026-04-27T17:14:21.727Z] ----------------------------------------------------------------------
+[debug] [2026-04-27T17:14:21.733Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Smriti\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only hosting
+[debug] [2026-04-27T17:14:21.734Z] CLI Version:   15.7.0
+[debug] [2026-04-27T17:14:21.734Z] Platform:      win32
+[debug] [2026-04-27T17:14:21.735Z] Node Version:  v24.14.0
+[debug] [2026-04-27T17:14:21.735Z] Time:          Mon Apr 27 2026 19:14:21 GMT+0200 (Central European Summer Time)
+[debug] [2026-04-27T17:14:21.735Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-27T17:14:24.189Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-27T17:14:24.189Z] > authorizing via signed-in user (sar.brawlstars@gmail.com)
+[debug] [2026-04-27T17:14:24.190Z] [iam] checking project sustainabuy-dev for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-04-27T17:14:24.191Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:24.192Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:24.193Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/sustainabuy-dev:testIamPermissions [none]
+[debug] [2026-04-27T17:14:24.193Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/sustainabuy-dev:testIamPermissions  x-goog-user-project=sustainabuy-dev
+[debug] [2026-04-27T17:14:24.194Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sustainabuy-dev:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-27T17:14:24.995Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/sustainabuy-dev:testIamPermissions 200
+[debug] [2026-04-27T17:14:24.996Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/sustainabuy-dev:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-04-27T17:14:24.997Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:24.997Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:24.997Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sustainabuy-dev [none]
+[debug] [2026-04-27T17:14:25.558Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sustainabuy-dev 200
+[debug] [2026-04-27T17:14:25.558Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sustainabuy-dev {"projectId":"sustainabuy-dev","projectNumber":"99139895549","displayName":"sustainabuy-dev","name":"projects/sustainabuy-dev","resources":{"hostingSite":"sustainabuy-dev"},"state":"ACTIVE","etag":"1_f5417176-c2d8-4c45-9b20-63617e0c264c"}
+[debug] [2026-04-27T17:14:29.408Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:29.408Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:29.409Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/sustainabuy-dev/sites pageToken=&pageSize=10
+[debug] [2026-04-27T17:14:30.531Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/sustainabuy-dev/sites 200
+[debug] [2026-04-27T17:14:30.531Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/sustainabuy-dev/sites {"sites":[{"name":"projects/sustainabuy-dev/sites/sustainabuy-dev","defaultUrl":"https://sustainabuy-dev.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2026-04-27T17:14:30.534Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:30.534Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:30.535Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/sustainabuy-dev/sites 
+[debug] [2026-04-27T17:14:31.697Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/sustainabuy-dev/sites 200
+[debug] [2026-04-27T17:14:31.698Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/sustainabuy-dev/sites {"sites":[{"name":"projects/sustainabuy-dev/sites/sustainabuy-dev","defaultUrl":"https://sustainabuy-dev.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2026-04-27T17:14:31.698Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:31.698Z] Checked if tokens are valid: true, expires at: 1777313588595
+[debug] [2026-04-27T17:14:31.699Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sustainabuy-dev/webApps/-/config [none]
+[debug] [2026-04-27T17:14:32.598Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sustainabuy-dev/webApps/-/config 200
+[debug] [2026-04-27T17:14:32.598Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sustainabuy-dev/webApps/-/config {"projectId":"sustainabuy-dev","appId":"1:99139895549:web:728ca5ad41a4950acebe94","storageBucket":"sustainabuy-dev.firebasestorage.app","apiKey":"AIzaSyBrpmL329XEEM0GHp5z_7qEeQyHA_gLlug","authDomain":"sustainabuy-dev.firebaseapp.com","messagingSenderId":"99139895549","measurementId":"G-G1JYYKMHTV","projectNumber":"99139895549","version":"2"}
