@@ -199,7 +199,8 @@ export async function getAllProducts(category?: string): Promise<Product[]> {
         // If empty, return some local demo data as fallback to prevent "empty app" feel
         if (querySnapshot.empty) {
             console.log("No products in Firestore, returning demo fallback.");
-            return ((await import("./seed")) as any).DEMO_PRODUCTS.map((p: any, idx: number) => ({ ...p, id: `demo-${idx}` } as Product));
+            const { DEMO_PRODUCTS } = await import("./seed");
+            return DEMO_PRODUCTS.map((p: any, idx: number) => ({ ...p, id: `demo-${idx}` } as Product));
         }
 
         return querySnapshot.docs.map(doc => {
@@ -209,13 +210,20 @@ export async function getAllProducts(category?: string): Promise<Product[]> {
                 ...data,
                 baseScore: data.baseScore || data.score, // Map old to new
                 thumbnail: data.thumbnail || data.image,   // Map old to new
+                score: data.score || data.baseScore,       // Ensure both exist
+                image: data.image || data.thumbnail        // Ensure both exist
             } as Product;
         });
     } catch (error) {
         console.error("Firestore error, using demo fallback:", error);
         // Fallback to imported demo products
-        const { DEMO_PRODUCTS } = (await import("./seed")) as any;
-        return DEMO_PRODUCTS.map((p: any, idx: number) => ({ ...p, id: `demo-${idx}` } as Product));
+        try {
+            const { DEMO_PRODUCTS } = await import("./seed");
+            return DEMO_PRODUCTS.map((p: any, idx: number) => ({ ...p, id: `demo-${idx}` } as Product));
+        } catch (e) {
+            console.error("Critical: Could not load demo products fallback.");
+            return [];
+        }
     }
 }
 

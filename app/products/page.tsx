@@ -79,16 +79,18 @@ function ProductsContent() {
     }, [selectedCategory]);
 
     const filteredProducts = products.filter(product => {
+        if (!product || !product.name) return false;
+        
         const intent = parseSearchIntent(debouncedSearch);
-        const normalizedName = normalizeQuery(product.name);
-        const normalizedBrand = normalizeQuery(product.brand);
+        const normalizedName = normalizeQuery(product.name || "");
+        const normalizedBrand = normalizeQuery(product.brand || "");
 
         // 1. Category Filter
         const matchesCategory = selectedCategory === "All" || product.category === selectedCategory;
         if (!matchesCategory) return false;
 
         // 2. Search Filter (Intent Based)
-        if (!debouncedSearch) return true;
+        if (!debouncedSearch || debouncedSearch.trim() === "") return true;
 
         // Check if intent brand matches exactly or partially
         if (intent.brand && (normalizedBrand.includes(normalizeQuery(intent.brand)) || normalizeQuery(intent.brand).includes(normalizedBrand))) return true;
@@ -97,7 +99,7 @@ function ProductsContent() {
         if (intent.category && product.category === intent.category) return true;
 
         // General keyword match
-        return intent.keywords.some(keyword =>
+        return intent.keywords.filter(k => k.length > 0).some(keyword =>
             normalizedName.includes(keyword) || normalizedBrand.includes(keyword)
         );
     });
@@ -237,7 +239,7 @@ function ProductsContent() {
                     </div>
 
                     {/* Categories */}
-                    <div className=\"flex overflow-x-auto py-6 -my-6 gap-4 no-scrollbar\">
+                    <div className="flex overflow-x-auto py-6 -my-6 gap-4 no-scrollbar">
                         {categories.map((category, idx) => (
                             <motion.button
                                 key={category}
@@ -246,8 +248,8 @@ function ProductsContent() {
                                 transition={{ delay: idx * 0.05 }}
                                 onClick={() => setSelectedCategory(category)}
                                 className={`px-8 py-3 rounded-2xl text-sm font-bold whitespace-nowrap transition-all duration-300 border ${selectedCategory === category
-                                    ? \"bg-cerulean-500 border-cerulean-400 text-white shadow-[0_10px_30px_-10px_rgba(59,130,246,0.5)] scale-105\"
-                                    : \"bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10\"
+                                    ? "bg-cerulean-500 border-cerulean-400 text-white shadow-[0_10px_30px_-10px_rgba(59,130,246,0.5)] scale-105"
+                                    : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10"
                                     }`}
                             >
                                 {category}

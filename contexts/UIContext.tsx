@@ -6,41 +6,51 @@ interface UIContextType {
     isLiquidMode: boolean;
     setLiquidMode: (enabled: boolean) => void;
     toggleLiquidMode: () => void;
+    isCompanionEnabled: boolean;
+    toggleCompanion: () => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export function UIProvider({ children }: { children: React.ReactNode }) {
     const [isLiquidMode, setIsLiquidMode] = useState(true);
+    const [isCompanionEnabled, setIsCompanionEnabled] = useState(true);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     // Load from LocalStorage
     useEffect(() => {
-        const saved = localStorage.getItem("sb-ui-liquid");
-        if (saved !== null) {
-            setIsLiquidMode(saved === "true");
-        }
+        const savedLiquid = localStorage.getItem("sb-ui-liquid");
+        const savedCompanion = localStorage.getItem("sb-ui-companion");
+        if (savedLiquid !== null) setIsLiquidMode(savedLiquid === "true");
+        if (savedCompanion !== null) setIsCompanionEnabled(savedCompanion === "true");
     }, []);
 
     // Save to LocalStorage
     useEffect(() => {
         localStorage.setItem("sb-ui-liquid", isLiquidMode.toString());
-    }, [isLiquidMode]);
+        localStorage.setItem("sb-ui-companion", isCompanionEnabled.toString());
+    }, [isLiquidMode, isCompanionEnabled]);
 
     // Track Mouse for Liquid Effect
     useEffect(() => {
-        if (!isLiquidMode) return;
         const handleMouseMove = (e: MouseEvent) => {
             setMousePos({ x: e.clientX, y: e.clientY });
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [isLiquidMode]);
+    }, []);
 
     const toggleLiquidMode = () => setIsLiquidMode(prev => !prev);
+    const toggleCompanion = () => setIsCompanionEnabled(prev => !prev);
 
     return (
-        <UIContext.Provider value={{ isLiquidMode, setLiquidMode: setIsLiquidMode, toggleLiquidMode }}>
+        <UIContext.Provider value={{ 
+            isLiquidMode, 
+            setLiquidMode: setIsLiquidMode, 
+            toggleLiquidMode,
+            isCompanionEnabled,
+            toggleCompanion
+        }}>
             <div className={isLiquidMode ? "liquid-mode" : ""}>
                 {isLiquidMode && (
                     <>

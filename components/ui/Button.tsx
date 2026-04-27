@@ -12,7 +12,7 @@ export function Button({
     ...props
 }: ButtonProps) {
 
-    const baseStyles = "font-medium rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center";
+    const baseStyles = "font-medium rounded-2xl transition-all duration-200 active:scale-95 flex items-center justify-center";
 
     const variants = {
         primary: "bg-cerulean-500 hover:bg-cerulean-600 text-white shadow-lg shadow-cerulean-500/20",

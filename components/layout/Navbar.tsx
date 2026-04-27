@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { useState, FormEvent } from "react";
-import { Menu, X, Leaf, Search, ShoppingBag, Droplets, Heart } from "lucide-react";
+import { Menu, X, Leaf, Search, ShoppingBag, Droplets, Heart, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import { useUI } from "@/contexts/UIContext";
 import { useWishlist } from "@/contexts/WishlistContext";
-import { CartDrawer } from "@/components/ui/CartDrawer";
 import { motion } from "framer-motion";
 
 export function Navbar() {
@@ -17,40 +16,40 @@ export function Navbar() {
     const { user, userProfile } = useAuth();
     const router = useRouter();
     const { toggleCart, itemCount } = useCart();
-    const { isLiquidMode, toggleLiquidMode } = useUI();
+    const { isLiquidMode, toggleLiquidMode, isCompanionEnabled, toggleCompanion } = useUI();
     const { wishlist } = useWishlist();
 
     return (
-        <nav className="glass-header">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
+        <nav className="glass-header fixed top-0 left-0 right-0 z-[100]">
+            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-20">
+                <div className="flex items-center justify-between h-full">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="bg-cerulean-500/20 p-2 rounded-xl group-hover:bg-cerulean-500/30 transition-colors">
+                    <Link href="/" className="flex items-center space-x-3 group">
+                        <div className="bg-cerulean-500/20 p-2.5 rounded-xl group-hover:bg-cerulean-500/30 transition-colors">
                             <Leaf className="h-6 w-6 text-cerulean-400 group-hover:text-cerulean-300 transition-colors" />
                         </div>
-                        <span className="text-xl font-bold bg-gradient-to-r from-cerulean-300 to-tropical-teal-300 bg-clip-text text-transparent">
+                        <span className="text-2xl font-bold bg-gradient-to-r from-cerulean-300 to-tropical-teal-300 bg-clip-text text-transparent tracking-tight">
                             SustainaBuy
                         </span>
                     </Link>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:block">
-                        <div className="ml-10 flex items-baseline space-x-8">
-                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <div className="ml-12 flex items-baseline space-x-10">
+                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors">
                                 Home
                             </Link>
-                            <Link href="/products" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/products" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors">
                                 Products
                             </Link>
-                            <Link href="/databank" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            <Link href="/databank" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors">
                                 Data Bank
                             </Link>
                         </div>
                     </div>
 
                     {/* Desktop Actions */}
-                    <div className="hidden md:flex items-center space-x-2">
+                    <div className="hidden md:flex items-center space-x-4">
                         <form
                             onSubmit={(e: FormEvent) => {
                                 e.preventDefault();
@@ -64,10 +63,10 @@ export function Navbar() {
                                 type="text"
                                 placeholder="Search products..."
                                 suppressHydrationWarning
-                                className="bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cerulean-500/50 w-48 transition-all group-hover:bg-white/10"
+                                className="bg-white/5 border border-white/10 rounded-2xl px-5 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cerulean-500/50 w-56 transition-all group-hover:bg-white/10"
                             />
-                            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2" suppressHydrationWarning>
-                                <Search className="h-4 w-4 text-gray-500 group-hover:text-cerulean-400 transition-colors" />
+                            <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2" suppressHydrationWarning>
+                                <Search className="h-4 w-4 text-cerulean-400 group-hover:text-cerulean-300 transition-colors drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
                             </button>
                         </form>
                         <Button
@@ -115,6 +114,27 @@ export function Navbar() {
                             )}
                         </Button>
                         <div className="h-6 w-px bg-white/10 mx-2"></div>
+                        
+                        <div className="flex items-center gap-1 mr-4 bg-white/5 border border-white/10 p-1 rounded-full">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className={`!p-1.5 !rounded-full transition-all ${isLiquidMode ? 'bg-cerulean-500 text-white' : 'text-gray-500'}`}
+                                onClick={toggleLiquidMode}
+                                title={isLiquidMode ? "Disable Liquid Mode" : "Enable Liquid Mode"}
+                            >
+                                <Droplets className="h-4 w-4" />
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className={`!p-1.5 !rounded-full transition-all ${isCompanionEnabled ? 'bg-tea-green-500 text-white' : 'text-gray-500'}`}
+                                onClick={toggleCompanion}
+                                title={isCompanionEnabled ? "Disable Companion Mode" : "Enable Companion Mode"}
+                            >
+                                <ShieldCheck className="h-4 w-4" />
+                            </Button>
+                        </div>
 
                         {user ? (
                             <Link href="/account">
@@ -134,14 +154,16 @@ export function Navbar() {
                                 </Button>
                             </Link>
                         ) : (
-                            <>
-                                <Link href="/login">
-                                    <Button variant="secondary" size="sm">Log In</Button>
+                            <div className="flex items-center gap-2">
+                                <Link href="/login" className="text-sm font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 whitespace-nowrap">
+                                    Log In
                                 </Link>
                                 <Link href="/signup">
-                                    <Button variant="primary" size="sm">Sign Up</Button>
+                                    <span className="text-sm font-semibold bg-cerulean-500 hover:bg-cerulean-400 text-white px-4 py-1.5 rounded-full transition-colors whitespace-nowrap cursor-pointer">
+                                        Sign Up
+                                    </span>
                                 </Link>
-                            </>
+                            </div>
                         )}
                     </div>
 
@@ -182,7 +204,6 @@ export function Navbar() {
                 </div>
             )}
 
-            <CartDrawer />
         </nav>
     );
 }

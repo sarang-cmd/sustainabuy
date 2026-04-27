@@ -71,7 +71,7 @@ export default function Home() {
     ];
 
     return (
-        <div ref={containerRef} className="flex flex-col gap-32 pb-32 overflow-x-hidden">
+        <div ref={containerRef} className="flex flex-col gap-24 pb-32 overflow-x-hidden">
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 {/* Animated Background Gradients (Parallax) */}
@@ -121,34 +121,33 @@ export default function Home() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.3 }}
-                        className="max-w-3xl mx-auto relative group"
+                        className="max-w-4xl mx-auto relative group px-6"
                     >
-                        <div className="absolute inset-0 bg-gradient-to-r from-cerulean-500/30 to-tropical-teal-500/30 blur-3xl rounded-3xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
-                        <LiquidCard className="p-2 flex flex-col md:flex-row items-center relative z-10 !bg-jet-black-950/60 !border-white/20 gap-2">
+                        <div className="absolute inset-0 bg-gradient-to-r from-cerulean-500/20 to-tropical-teal-500/20 blur-[100px] rounded-[60px] opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                        <LiquidCard className="p-2 flex flex-col md:flex-row items-stretch md:items-center relative z-10 !bg-jet-black-950/80 !border-white/10 gap-2 !rounded-[32px] shadow-2xl overflow-hidden">
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
                                     if (searchQuery.trim()) router.push(`/products?q=${encodeURIComponent(searchQuery)}`);
                                 }}
-                                className="flex items-center w-full"
+                                className="flex items-center flex-grow min-w-0"
                             >
-                                <Search className="ml-4 h-6 w-6 text-cerulean-400 flex-shrink-0" />
+                                <div className="ml-4 md:ml-6 p-2 rounded-xl bg-cerulean-500/10 text-cerulean-400 flex-shrink-0">
+                                    <Search className="h-6 w-6 drop-shadow-[0_0_10px_rgba(59,130,246,0.6)]" />
+                                </div>
                                 <input
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    placeholder="Search for sustainable sneakers, brands, etc..."
+                                    placeholder="Search by name, brand or category..."
                                     suppressHydrationWarning
-                                    className="w-full bg-transparent border-none text-white text-lg placeholder-gray-500 focus:ring-0 px-6 py-4 font-medium outline-none"
+                                    className="flex-grow bg-transparent border-none text-white text-lg md:text-xl placeholder-gray-500 focus:ring-0 px-4 py-5 md:px-6 md:py-6 font-semibold outline-none min-w-0"
                                 />
-                                <Button type="submit" className="hidden" aria-hidden="true">
-                                    Search
-                                </Button>
                             </form>
                             <Button
                                 onClick={() => searchQuery.trim() && router.push(`/products?q=${encodeURIComponent(searchQuery)}`)}
                                 suppressHydrationWarning
-                                className="w-full md:w-auto !rounded-xl px-10 py-7 text-lg shadow-lg shadow-cerulean-500/30 hover:scale-[1.02] active:scale-95 transition-all"
+                                className="w-full md:w-auto !rounded-[24px] px-8 md:px-12 py-4 md:py-6 text-lg md:text-xl font-black tracking-tight shadow-xl shadow-cerulean-500/40 hover:scale-[1.02] active:scale-95 transition-all bg-cerulean-500 border-none hover:bg-cerulean-400 text-white flex-shrink-0"
                             >
                                 Search
                             </Button>
@@ -172,7 +171,7 @@ export default function Home() {
             </section>
 
             {/* Value Props - Staggered Scroll Reveal */}
-            <section className="container mx-auto px-4">
+            <section className="container mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
                         {
@@ -204,7 +203,7 @@ export default function Home() {
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <LiquidCard className="p-10 text-center h-full hover:bg-white/5 transition-colors">
+                            <LiquidCard className="p-10 text-center h-full hover:bg-white/5 transition-colors !rounded-[32px]">
                                 <div className={`${item.bg} w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-inner`}>
                                     <item.icon className={`h-8 w-8 ${item.color}`} />
                                 </div>
@@ -219,7 +218,7 @@ export default function Home() {
             </section>
 
             {/* Trending Section - Horizontal Scroll Animation */}
-            <section className="container mx-auto px-4 relative">
+            <section className="container mx-auto px-6 py-12 relative">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -248,7 +247,7 @@ export default function Home() {
             </section>
 
             {/* Newsletter / CTA */}
-            <section className="container mx-auto px-4 relative mb-20">
+            <section className="container mx-auto px-6 relative mb-20 py-12">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}

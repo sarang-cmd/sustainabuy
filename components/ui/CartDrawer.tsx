@@ -42,16 +42,16 @@ export function CartDrawer() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={handleClose}
-                        className=\"fixed inset-0 bg-jet-black-950/40 backdrop-blur-md z-[9998]\"
+                        className="fixed inset-0 bg-black/60 backdrop-blur-xl z-[9998]"
                     />
 
                     {/* Drawer */}
                     <motion.div
-                        initial={{ x: \"100%\" }}
+                        initial={{ x: "100%" }}
                         animate={{ x: 0 }}
-                        exit={{ x: \"100%\" }}
-                        transition={{ type: \"spring\", damping: 25, stiffness: 200 }}
-                        className=\"fixed right-0 top-0 bottom-0 w-full max-w-md bg-jet-black-900/95 border-l border-white/10 z-[9999] flex flex-col shadow-[-20px_0_50px_rgba(0,0,0,0.5)]\"
+                        exit={{ x: "100%" }}
+                        transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                        className="fixed right-0 top-0 bottom-0 w-full max-w-md bg-jet-black-950 border-l border-white/10 z-[9999] flex flex-col shadow-[-40px_0_100px_rgba(0,0,0,0.8)]"
                     >
                         {/* Header */}
                         <div className="p-6 border-b border-white/10 flex items-center justify-between bg-jet-black-900/50">
