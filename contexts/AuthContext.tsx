@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
 
         return () => unsubscribe();
-    }, [user]); // Re-run if user changes to ensure profile sync
+    }, []); // Run once on mount
 
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
