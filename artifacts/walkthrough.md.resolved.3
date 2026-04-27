@@ -1,0 +1,32 @@
+# SustainaBuy V2.0 Walkthrough
+
+We have successfully upgraded **SustainaBuy** to a fully data-driven application with user persistence.
+
+## New Feature Highlights
+
+### 1. Persistence & Firestore
+- **Real Database**: Replaced mock data with Google Firestore.
+- **Dynamic Fetching**: Products are now loaded live from the database.
+
+### 2. User Account System
+- **Profile Dashboard**: View sustainability impact stats/gamification.
+- **Wishlist**: Save favorite products to your permanent collection ([app/wishlist/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/wishlist/page.tsx)).
+- **Secure Access**: Protected routes enforce login for personal features.
+
+### 3. Automatic Product Scanner
+- **"Scan to Add"**: New feature ([app/add-product/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/add-product/page.tsx)) allowing users to input *any* product name.
+- **AI Simulation**: The system "finds" the product, generates a sustainability score, and saves it to the global database instantly.
+
+### 4. Advanced Comparison
+- **Side-by-Side**: Compare products on price, score, materials, and certifications ([app/compare/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/compare/page.tsx)).
+
+## Setup Update
+
+The setup remains similar, but **Firestore is now required**:
+1.  Ensure your Firestore database is created in the Firebase Console (Test Mode).
+2.  If you want to test the **Scanner**, just go to `/add-product` and type a name like "Recycled Yoga Mat". It will appear in the main product list after scanning!
+
+## Validation
+- [x] **Auth**: Login persistent across refreshes.
+- [x] **Database**: Products added via Scanner appear in the main list.
+- [x] **Wishlist**: Items added to wishlist stay there after logout/login.

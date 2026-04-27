@@ -1,0 +1,39 @@
+# Restoration Plan for SustainaBuy_v0.2
+
+The project appears to be missing several critical configuration and source files, including [package.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/package.json) scripts, `tsconfig.json`, `next.config.js`, and the root `app/layout.tsx` and `app/page.tsx`. This causes `npm run dev` to fail.
+
+## User Review Required
+> [!WARNING]
+> I will be creating new configuration files and a basic `app/layout.tsx` and `app/page.tsx`. If you have backups of these files, please restore them instead. Any existing files with these names (though none were found) would be overwritten if I force it, but I will check first.
+
+## Proposed Changes
+
+### Configuration Files
+
+#### [NEW] [package.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/package.json)
+- Add standard Next.js scripts: `dev`, `build`, `start`, `lint`.
+- Restore dependencies: `next`, `react`, `react-dom`.
+
+#### [NEW] [tsconfig.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/tsconfig.json)
+- Create standard Next.js TypeScript configuration.
+
+#### [NEW] [next.config.js](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/next.config.js)
+- Create default Next.js config.
+
+### Source Files
+
+#### [NEW] [app/layout.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/layout.tsx)
+- Create root layout with `<html>` and `<body>` tags.
+
+#### [NEW] [app/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/page.tsx)
+- Create a simple home page to verify the app works.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm install` to ensure dependencies are linking correctly.
+- Run `npm run dev` and verify it starts without error.
+- Use `browse_url` (if available) or `curl` on `localhost:3000` to verify the page loads.
+
+### Manual Verification
+- User can open `http://localhost:3000` to see the restored "SustainaBuy" home page.

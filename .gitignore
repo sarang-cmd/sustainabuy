@@ -7,7 +7,7 @@ node_modules/
 coverage
 
 # Next.js
-.next/
+#.next/
 out/
 
 # Production
@@ -32,7 +32,10 @@ build
 next-env.d.ts
 
 # Antigravity/Gemini
-artifacts/
-.gemini/
-antigravity_backups/
-*.zip
+# artifacts/
+# .gemini/
+# antigravity_backups/
+# *.zip
+
+# Version Backups
+#.ver/

@@ -1,0 +1,49 @@
+# SustainaBuy Release 0.3 Task List
+
+## 1. Visual & UI Optimization (The "Wow" Factor) 🎨
+- [ ] Fix Landing Page Search Bar (Layout & Visuals) <!-- id: 101 -->
+- [ ] Animate "Consciously" Gradient (Dynamic Animation) <!-- id: 102 -->
+- [ ] Tone down box parallax effect <!-- id: 103 -->
+- [ ] Add slight parallax to images to match boxes <!-- id: 104 -->
+- [ ] Make AI-Powered Analysis dot pulse <!-- id: 105 -->
+- [ ] Fix Profile Avatar (Center letter, support images, sync across pages) <!-- id: 106 -->
+
+## 2. Core Search & Navigation 🔍
+- [ ] Implement global search (Landing, Header, All Pages) <!-- id: 107 -->
+- [ ] Search Results: Return list of real products instead of single fake product <!-- id: 108 -->
+- [ ] Search Normalization (Casing, Typo handling, Synonyms) <!-- id: 109 -->
+- [ ] Parse User Intent (Query real data sources) <!-- id: 110 -->
+- [ ] Fix "View All" button under Trending Finds <!-- id: 111 -->
+
+## 3. Product System & Comparison (Idealo Style) 📦
+- [ ] Support Product Variants (Models, Sizes, Colors) <!-- id: 112 -->
+- [ ] Integrate Product Comparison API (Groupings, Sellers, Buy Links) <!-- id: 113 -->
+- [ ] List all sellers per variant (Price, availability, shipping, stock) <!-- id: 114 -->
+- [ ] cheapest first sorting & multi-sorting (Score, Rating, Speed) <!-- id: 115 -->
+- [ ] Show sustainability score visibility everywhere (Cards, Results, Detail) <!-- id: 116 -->
+- [ ] Finalize Product Detail Pages (One per group, nested variants) <!-- id: 117 -->
+- [ ] Validate and sanitize all external buy links <!-- id: 118 -->
+
+## 4. AI Scanner & Data Logic 🤖
+- [ ] Fix AI Scanner Load Time (Parallel API calls, Caching, Skeleton loading) <!-- id: 119 -->
+- [ ] Improve Sustainability Score Logic (Brand data, certs, materials vs random) <!-- id: 120 -->
+- [ ] Fix Add-Product "Running Life Cycle Assessment AI" hang <!-- id: 121 -->
+- [ ] Improve Scanner Anim (Step-based progress: Analyzing -> Fetching -> Scoring) <!-- id: 122 -->
+- [ ] Fix Product Page / Sustainable Finds "Endless Scanning" <!-- id: 123 -->
+
+## 5. Account & Auth Features 👤
+- [ ] Expand Account Settings (Edit name, birthday, profile details) <!-- id: 124 -->
+- [ ] Avatar Customization (Presets & Image Upload) <!-- id: 125 -->
+- [ ] Account Linking Management (Google, GitHub) <!-- id: 126 -->
+- [ ] Email & Password Management (Add/Remove email, Reset Flow) <!-- id: 127 -->
+- [ ] Enable Email/Password Login Provider <!-- id: 128 -->
+- [ ] Account History Page (Viewed products, Search queries) <!-- id: 129 -->
+
+## 6. Static Pages & Content 📄
+- [ ] Implement Footer Pages (Privacy Policy, Careers, About Us) <!-- id: 130 -->
+- [ ] Fix Data Bank bottom actions (Verified sources, Audit, Carbon models) <!-- id: 131 -->
+
+## 7. Performance & Stability ⚡
+- [ ] API Response Caching & Search Debouncing <!-- id: 132 -->
+- [ ] Proper Empty, Error, and Loading states globally <!-- id: 133 -->
+- [ ] Document Auth setup and Environment Variables <!-- id: 134 -->

@@ -1,0 +1,70 @@
+# Implementation Plan - SustainaBuy Release 0.3 🚀
+
+This plan outlines the steps to elevate SustainaBuy from a prototype to a polished, functional product comparison and sustainability engine.
+
+## 1. Visual & UI Refinement
+Refining the premium aesthetic with subtle animations and better centering.
+
+### Component: [Header & Avatar]
+- [MODIFY] [Navbar.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/layout/Navbar.tsx): Replace letter avatar with `img` support. Use global [AuthContext](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/contexts/AuthContext.tsx#14-21) to sync profile picture instantly. Center the avatar in its container.
+
+### Component: [Landing Page]
+- [MODIFY] [page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/page.tsx): Fix Hero search bar layout based on user feedback. Connect search input to router.
+- [MODIFY] [globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css):
+    - Tone down parallax variables.
+    - Add `.animate-pulse-dot` for the AI status.
+    - Add `@keyframes` for the "Consciously" gradient sweep.
+
+---
+
+## 2. Advanced Search & Product Engine
+Transitioning from matching raw strings to a structured product/variant hierarchy (Idealo style).
+
+### Component: [Search System]
+- [MODIFY] [db.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts):
+    - Implement `searchProducts(query: string)` that returns a list of results.
+    - Add normalization logic (lowercase, trim, regex for typos).
+- [NEW] [SearchDropdown.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/search/SearchDropdown.tsx): A shared component for the header and landing page to show live results.
+
+### Component: [Product Grouping]
+- [MODIFY] Product interfaces to support `variants[]` and `offers[]`.
+- [MODIFY] [ProductCard.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/product/ProductCard.tsx): Show "Starts from $X" and the Sustainability Score badge prominently.
+
+---
+
+## 3. AI Scanner & Performance Fixes
+Eliminating infinite loaders and optimizing slow calculations.
+
+### Component: [AI Scanner]
+- [MODIFY] [add-product/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/add-product/page.tsx):
+    - Implement parallel API calls for scoring.
+    - Replace generic spinner with step-based progress indicators.
+    - Add timeout fallback (2 seconds target).
+
+---
+
+## 4. Account & Authentication
+Comprehensive profile and link management.
+
+### Component: [Account Settings]
+- [MODIFY] [account/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/account/page.tsx): Add forms for birthday, name, and profile details.
+- [MODIFY] [AuthContext.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/contexts/AuthContext.tsx): Add methods for linking/unlinking providers and updating email/passwords.
+
+---
+
+## 5. Content & Footer Pages
+Completing the site structure.
+
+- [NEW] [Privacy Policy, Careers, About Us pages].
+- [MODIFY] [Footer.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/layout/Footer.tsx): Wire broken links.
+
+## Verification Plan
+
+### Automated Tests
+- Run `npm run build` after each major component fix.
+- Test search normalization with various casing and typos.
+
+### Manual Verification
+- Verify parallax intensity across different scroll speeds.
+- Test "Cheapest First" sorting logic with mock variant data.
+- Check avatar sync across at least 3 different pages after an update.

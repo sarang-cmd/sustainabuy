@@ -1,0 +1,31 @@
+# Overhaul Plan - UX, Performance & Features
+
+## 1. Performance & Bug Fixes 🛠️
+- **Reduce GPU Load**: Lower `backdrop-blur` from `xl/2xl` to [md](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/README.md) in [globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css) and [LiquidCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/LiquidCard.tsx#13-93).
+- **Fix Hover Clipping**: Remove `overflow-hidden` from [ProductCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/product/ProductCard.tsx#16-61) to prevent image disappearance during 3D tilt.
+- **Hardware Acceleration**: Use `will-change: transform` on animated cards.
+- **Snappy Transitions**: Tune `framer-motion` springs for faster, non-oscillating animations.
+
+## 2. Advanced Product Features 🔍
+- **Fast Search & Filters**: Ensure search is responsive and category filtering is instantaneous.
+- **Recommendations Engine**:
+  - Add a "Smart Recommendations" section on the Products page.
+  - Logic: Show products with scores > 80 or from categories the user frequently views.
+- **Full Catalog Visibility**: Ensure pagination or infinite scroll (for simplicity in V1, just ensure effective loading/filtering of the full Firestore collection).
+
+## 3. Visual Polish 🍏
+- **Data Bank Refinement**: Better layout and more premium animations for topic cards.
+- **Landing Page Speed**: Optimize hero section animations to prevent "stutter" on first load.
+
+## 4. Deployment & Hosting 🚀
+- **Firebase Hosting**:
+  - Configure [firebase.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/firebase.json) for Next.js 15.
+  - Add deployment guide.
+
+## Tasks
+- [ ] Fix [globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css) (reduce blur).
+- [ ] Fix [LiquidCard.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/LiquidCard.tsx) (remove overflow, add will-change).
+- [ ] Update [ProductCard.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/product/ProductCard.tsx) (fix image layering).
+- [ ] Implement Recommendations UI/Logic in [app/products/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/products/page.tsx).
+- [ ] Refine [DatabankPage](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/databank/page.tsx#7-121).
+- [ ] Guide Firebase Hosting setup.

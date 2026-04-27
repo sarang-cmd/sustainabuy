@@ -1,0 +1,24 @@
+# Tasks
+
+- [x] **Firestore Integration** <!-- id: 100 -->
+    - [x] Create [lib/db.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts) for DB operations <!-- id: 101 -->
+    - [x] Define Firestore Security Rules (Documentation) <!-- id: 102 -->
+- [x] **User Account System** <!-- id: 110 -->
+    - [x] Build [app/account/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/account/page.tsx) (Profile) <!-- id: 111 -->
+    - [x] Build [app/wishlist/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/wishlist/page.tsx) <!-- id: 112 -->
+    - [x] Update [Navbar](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/layout/Navbar.tsx#9-113) with User Dropdown <!-- id: 113 -->
+- [x] **Automatic Product System** <!-- id: 120 -->
+    - [x] Create [app/add-product/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/add-product/page.tsx) (Scanner/Add) <!-- id: 121 -->
+    - [x] Implement "Auto-Add" logic in [lib/db.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts) <!-- id: 122 -->
+- [x] **Advanced Features** <!-- id: 130 -->
+    - [x] Build [app/compare/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/compare/page.tsx) <!-- id: 131 -->
+    - [x] Connect [app/products/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/products/page.tsx) to Firestore <!-- id: 132 -->
+    - [x] Connect [app/products/[id]/page.tsx](file:///c:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/products/%5Bid%5D/page.tsx) to Firestore <!-- id: 133 -->
+- [x] **Visual Overhaul (V3.0)** <!-- id: 200 -->
+    - [x] Install `framer-motion` & Update Font Stack <!-- id: 201 -->
+    - [x] Create [LiquidCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/LiquidCard.tsx#13-93) & 3D Tilt Components <!-- id: 202 -->
+    - [x] Implement Landing Page Parallax & Animations <!-- id: 203 -->
+    - [x] Animate Auth Pages ("Full Authenticator") <!-- id: 204 -->
+- [x] **Data Automation** <!-- id: 210 -->
+    - [x] Create Data Seeding Script (`lib/seed.ts`) <!-- id: 211 -->
+    - [x] Build Admin/Seed Trigger UI <!-- id: 212 -->

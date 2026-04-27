@@ -1,0 +1,41 @@
+# SustainaBuy V1.0 Walkthrough
+
+We have successfully built **SustainaBuy**, a production-ready sustainable shopping application.
+
+## Key Features Built
+
+### 1. Design System
+- **Custom Palette**: Implemented `Jet Black`, `Cerulean`, and `Tropical Teal` theme.
+- **Glassmorphism**: Translucent cards, soft blurs, and modern gradients.
+- **Responsive Layout**: Works seamlessly on mobile and desktop.
+
+### 2. Authentication
+- **Integrated Firebase**: Set up [AuthContext](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/contexts/AuthContext.tsx#14-21) to manage user sessions.
+- **Social Login**: Ready for Google and GitHub authentication.
+- **Protected UI**: Navbar updates based on login state.
+
+### 3. Core Pages
+- **Home**: Dynamic hero section with "Trending" products and search.
+- **Data Bank**: Educational resource page explaining sustainability metrics.
+
+### 4. Product System
+- **AI Scoring Logic**: Mocked analysis engine ([lib/scoring.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/scoring.ts)) that evaluates products.
+- **Product Listing**: Searchable, filterable grid of sustainable items.
+- **Product Detail**: In-depth view with "Sustainability Breakdown" charts.
+
+## Setup Instructions
+
+1.  **Configure Firebase**:
+    - Rename [.env.local.example](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/.env.local.example) to [.env.local](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/.env.local).
+    - Paste your Firebase API keys.
+2.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
+3.  **Explore**:
+    - Navigate to `/products` to see the listing.
+    - Click on any product to see the AI scoring breakdown.
+
+## Next Steps
+- Connect the [scoring.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/scoring.ts) logic to a real AI API (e.g., OpenAI).
+- implementation of the User Profile page to save favorite items.

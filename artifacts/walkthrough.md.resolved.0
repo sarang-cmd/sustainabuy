@@ -1,0 +1,27 @@
+# Project Restoration Walkthrough
+
+I have successfully restored the missing configuration and source files, allowing the Next.js application to run correctly.
+
+## Changes Made
+
+### Configuration Files
+- **[package.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/package.json)**: Created with standard Next.js scripts (`dev`, `build`, `start`, `lint`) and strictly necessary dependencies (`next`, `react`, `react-dom`, `typescript`, etc.).
+- **[tsconfig.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/tsconfig.json)**: Created with standard TypeScript configuration for Next.js.
+- **[next.config.js](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/next.config.js)**: Created default Next.js configuration.
+
+### Source Files
+- **[app/layout.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/layout.tsx)**: Created a root layout with `<html>` and `<body>` tags.
+- **[app/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/page.tsx)**: Created a simple home page to verify the app works.
+
+## Verification Results
+
+### Automated Tests
+- Ran `npm install` to install all dependencies.
+- Ran `npm run dev` and confirmed the server started successfully at `http://localhost:3000`.
+
+### Manual Verification
+- You can now run `npm run dev` in your terminal.
+- Open [http://localhost:3000](http://localhost:3000) in your browser to see the "Welcome to SustainaBuy" page.
+
+## Next Steps
+- You can now begin building your application by editing [app/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/page.tsx) or adding new components in the `components` directory.

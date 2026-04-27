@@ -1,0 +1,67 @@
+# SustainaBuy: Ecosystem & API Guide 🍏
+
+This guide explains how SustainaBuy works "under the hood," the purpose of its files, and the external services (APIs) required to power Release 0.3.
+
+## 1. Project Architecture (File Map)
+Think of the project as a body: **App** is the brain/logic, **Components** are the limbs/UI, and **Lib** is the nervous system/data.
+
+### 📂 `app/` (The Routes)
+Each folder here represents a page on the website.
+- **[page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/page.tsx)**: The main Landing Page (Hero, Trending Finds, Search).
+- **`products/`**: The catalog where users search and filter items.
+- **`products/[id]/`**: The specific page for one product (dynamic).
+- **`add-product/`**: The "AI Product Scanner" interface.
+- **`account/`**: Everything related to the user's profile and settings.
+- **[(auth)/](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/utils.ts#4-7)**: Handles Login and Signup screens.
+- **`databank/`**: A page for detailed sustainability data analysis.
+- **[globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css)**: The design rules (colors, fonts, and those "Liquid Glass" animations).
+
+### 📂 `components/` (The Building Blocks)
+- **`layout/`**: Parts that stay visible everywhere (Navbar at the top, Footer at the bottom).
+- **`product/`**: The "ProductCard" used to display items in grids.
+- **[ui/](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/LiquidCard.tsx#13-94)**: Reusable design elements like our custom buttons, inputs, and the "LiquidCard" glass container.
+
+### 📂 `lib/` (The Logic & Data)
+- **[db.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts)**: The "Database Manager." It talks to Firebase to save/load products and users.
+- **[firebase.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/firebase.ts)**: The connection bridge to Google Firebase.
+- **[scoring.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/scoring.ts)**: The "Engine" that calculates sustainability scores (materials vs origin).
+
+---
+
+## 2. API & Infrastructure Guide (The Fuel)
+To make SustainaBuy functional for Release 0.3, we need three types of "Fuel" (APIs).
+
+### A. The Database: **Google Firebase**
+- **Function**: Stores user accounts, their wishlists, and the actual product data.
+- **Keys Needed**: `API_KEY`, `PROJECT_ID`, `APP_ID` (Found in Firebase Console).
+- **Status**: Already integrated.
+
+### B. The Comparison Engine: **Idealo / Rainforest API**
+- **Function**: Provides the "Idealo-style" grouping. It tells us: "This sneaker is sold by Amazon for $80 and Allbirds for $95." It also provides product images.
+- **Recommendation**: **Rainforest API** (for Amazon data) or **Idealo Partner API** (if accessible).
+- **Cost**: Usually Has a free tier (100–500 requests/month).
+
+### C. The Intelligence: **OpenAI (GPT-4o)**
+- **Function**: Powering the "AI Product Scanner." When you type a product name, GPT-4o analyzes its sustainability by researching its materials and brand reputation in real-time.
+- **Key Needed**: `OPENAI_API_KEY`.
+- **Status**: To be integrated in Phase 4.
+
+---
+
+## 3. Environment Setup (Getting Hands-On)
+To run the project, you need a [.env.local](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/.env.local) file. This is a "Secret Folder" where we store keys so they aren't exposed to the public.
+
+| Variable | Source | Purpose |
+| :--- | :--- | :--- |
+| `NEXT_PUBLIC_FIREBASE_...` | Firebase Console | Connects the app to your cloud database. |
+| `OPENAI_API_KEY` | OpenAI Dashboard | Allows the "AI Scanner" to think and analyze. |
+| `PRODUCT_API_KEY` | Rainforest / Idealo | Fetches real prices, images, and seller links. |
+
+---
+
+## 4. How the "Scanner" Works (Phase 4 Logic)
+1. **User Types**: "Nike Air Max."
+2. **Step 1 (Rainforest API)**: Fetches real photos, current prices, and seller links.
+3. **Step 2 (OpenAI)**: Analyzes the materials (e.g., "Recycled Polyester") and assigns a score.
+4. **Step 3 (Firestore)**: Saves the result so other users can find it instantly.
+5. **Result**: A beautiful product page with "Idealo-style" seller comparisons!

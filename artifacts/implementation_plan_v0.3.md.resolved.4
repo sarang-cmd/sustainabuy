@@ -1,0 +1,96 @@
+# Implementation Plan - SustainaBuy Release 0.3 🚀
+
+This plan transforms SustainaBuy into a high-performance, feature-rich product comparison platform.
+
+## 1. Visual & Branding Overhaul (Phase 1)
+Fixing visual bugs and adding premium animations.
+
+### [Landing Page]
+- [MODIFY] [page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/page.tsx):
+    - **1.1 Fix Search Bar**: Adjust layout to resolve the glitch in the screenshot. Ensure the Search button and icon are perfectly aligned within the LiquidCard.
+    - **1.2 Pulse Dot**: Update the "AI Powered Analysis" dot to use a CSS pulse animation.
+- [MODIFY] [globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css):
+    - **1.3 Gradient Animation**: Animate the `background-position` of the "Consciously" gradient for a dynamic effect.
+    - **1.4 Parallax Tuning**: Reduce the intensity of the box parallax and add a subtle parallax to images to create a unified 3D depth effect.
+
+---
+
+## 2. Dynamic Search & Discovery (Phase 2)
+Transitioning from matching raw strings to a structured product/variant hierarchy.
+
+### Component: [Search Logic]
+- [MODIFY] [db.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts):
+    - **2.1 Normalization**: Debounce input (300ms). Handle synonyms/typos.
+    - **2.2 Intent Parsing**: If query matches known groups (e.g. "stanley"), return ALL results. Don't auto-create 1 fake product.
+    - **2.3 Link Fix**: Generate routes using `productId` (`/products/[id]`), NOT search text slugs.
+- [MODIFY] [products/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/products/page.tsx):
+    - **2.4 Infinite Scanning**: Add 5s timeout. If no results, show "No sustainable matches found" + clear error UI.
+    - **2.5 Recommendations**: Link "Recommended for You" to user history and favored categories in [UserProfile](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts#20-29).
+
+---
+
+## 3. Product Catalog & "Idealo Style" Comparisons (Phase 3)
+Implementing variants, multiple sellers, and cheapest-first logic.
+
+### [Comparison Engine]
+- [MODIFY] [db.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/db.ts): Update schema to support `ProductGroup` -> `Variants` -> `Offers` hierarchy.
+- [NEW] [CartDrawer.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/cart/CartDrawer.tsx): **3.1 Fix the Cart** by implementing a functional slide-over cart.
+- [MODIFY] [ProductCard.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/product/ProductCard.tsx):
+    - **3.1 Image Fallbacks**: Implement category-based fallback images (e.g., shoe icon for footwear) to avoid empty cards.
+    - **3.2 Score Visibility**: Ensure the sustainability score is visible on cards, search lists, and variant buttons.
+- [MODIFY] [products/[id]/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/products/[id]/page.tsx):
+    - **3.3 Hierarchy**: Transition to `ProductGroup` (parent) -> `Variants` (children) -> `Offers` (sellers) logic.
+    - **3.4 Seller Table**: List all sellers with price (normalized currency), delivery time, and stock. Use "Cheapest First" as the default.
+    - **3.5 Link Validation**: Check buy links before render; hide broken links or show "Unavailable" status.
+
+---
+
+## 4. AI Engine & Scanner Optimization (Phase 4)
+Fixing the speed and logic of the sustainability engine.
+
+### Component: [AI Scanner & Scoring]
+- [MODIFY] [add-product/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/add-product/page.tsx):
+    - **4.1 Parallel & Cache**: Cache repeated scanner queries. Fire API calls in parallel.
+    - **4.2 Skeleton UI**: Show scanner layout skeletons immediately.
+    - **4.3 Progress Feedback**: Replace spinner with text: "Accessing Manufacturer Data...", "Analyzing Materials...", etc.
+- [MODIFY] [scoring.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/scoring.ts):
+    - **4.4 Advanced Logic**: Weigh materials vs transport distance.
+    - **4.5 Transparency**: Clearly label AI-estimates vs verified manufacturer data.
+
+---
+
+## 5. Account, Auth & History (Phase 5)
+A complete overhaul of user profile management.
+
+### [Account System]
+- [MODIFY] [AuthContext.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/contexts/AuthContext.tsx): Add support for Email provider toggles and profile sync.
+- [MODIFY] [account/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/account/page.tsx):
+    - **5.1 Profile Expansion**: Edit name, birthday, and bio for local profiles.
+    - **5.2 Avatar Support**: Choose from a preset gallery or upload an image. Sync the header avatar globally and instantly.
+    - **5.3 Settings Fix**: Ensure the "My Account" settings button and routes load correctly on all devices.
+    - **5.4 Linking**: Provide clear status and management for Google/GitHub account linking.
+- [MODIFY] [AuthContext.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/contexts/AuthContext.tsx):
+    - **5.5 Session Stability**: Ensure profile, email, or provider updates do NOT trigger an accidental logout.
+    - **5.6 Email Management**: Add/Remove emails and set primary email.
+    - **5.7 Secure Flow**: Implement password change and via email reset confirmation.
+    - **5.8 UI Feedback**: Add clear success/failure toast messages for all account changes.
+- [NEW] [account/history/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/account/history/page.tsx): Track and display viewed products and search clicks.
+
+---
+
+## 6. Static Pages & Content (Phase 6)
+Wiring up the remaining infrastructure.
+
+- [NEW] [Privacy, Careers, About Us pages] in `app/`.
+- [MODIFY] [databank/page.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/databank/page.tsx): Resolve broken bottom action buttons.
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` to verify static export for all dynamic routes.
+- Linting checks for new profile validation logic.
+
+### Manual Verification
+- Test variant selection and seller list updates on a product page.
+- Verify <2s "Add Product" flow with simulated low-latency connections.
+- Ensure avatar updates in Settings reflected immediately in the Navbar.

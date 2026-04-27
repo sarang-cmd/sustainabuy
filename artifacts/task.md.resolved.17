@@ -1,0 +1,24 @@
+# Tasks
+
+- [x] **Configuration** <!-- id: 10 -->
+    - [x] Create [tailwind.config.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/tailwind.config.ts) with custom palette <!-- id: 11 -->
+    - [x] Create [postcss.config.js](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/postcss.config.js) <!-- id: 12 -->
+    - [x] Update [app/globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css) with base styles <!-- id: 13 -->
+    - [x] Create [lib/firebase.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/firebase.ts) and [.env.local](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/.env.local) template <!-- id: 14 -->
+- [x] **Design System** <!-- id: 20 -->
+    - [x] Create [GlassCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/GlassCard.tsx#6-15) component <!-- id: 21 -->
+    - [x] Create [Button](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/Button.tsx#7-39) and [Input](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/Input.tsx#7-39) components <!-- id: 22 -->
+    - [x] Create [Navbar](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/layout/Navbar.tsx#8-97) and [Footer](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/layout/Footer.tsx#4-63) <!-- id: 23 -->
+- [x] **Authentication** <!-- id: 30 -->
+    - [x] Implement [contexts/AuthContext.tsx](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/contexts/AuthContext.tsx) <!-- id: 31 -->
+    - [x] Build Login Page <!-- id: 32 -->
+    - [x] Build Signup Page <!-- id: 33 -->
+- [x] **Core Features** <!-- id: 40 -->
+    - [x] Build Home Page (Hero, Search) <!-- id: 41 -->
+    - [x] Build Data Bank Page <!-- id: 42 -->
+- [x] **Product System** <!-- id: 50 -->
+    - [x] Create [lib/scoring.ts](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/lib/scoring.ts) (AI Logic) <!-- id: 51 -->
+    - [x] Build Product Listing Page (Search/Filter) <!-- id: 52 -->
+    - [x] Build Product Detail Page <!-- id: 53 -->
+- [x] **Documentation** <!-- id: 60 -->
+    - [x] Create Setup Guide in [README.md](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/README.md) <!-- id: 61 -->

@@ -39,13 +39,13 @@ export function Footer() {
                     <div>
                         <h3 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">Connect</h3>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://github.com/sarang-cmd" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                                 <Github className="h-5 w-5" />
                             </a>
                             <a href="#" className="text-gray-400 hover:text-white transition-colors">
                                 <Twitter className="h-5 w-5" />
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://instagram.com/aaravdeev" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                                 <Instagram className="h-5 w-5" />
                             </a>
                         </div>

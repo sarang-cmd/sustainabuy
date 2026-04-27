@@ -1,0 +1,30 @@
+# Implementation Plan - Performance Optimization & Bug Fixes
+
+Addressing performance bottlenecks, fixing the "hover image" bug, and setting up Firebase Hosting.
+
+## 1. Performance Optimization ⚡
+The "Liquid Glass" effect is visually stunning but heavy on the GPU. We will optimize it to ensure a smooth 60fps experience.
+- **Reduce Blur Intensity**: Change `backdrop-blur-xl/2xl` to `backdrop-blur-md` for standard cards. Higher blurs will be reserved for major hero elements only.
+- **Optimize SVG Noise**: The noise texture is currently a heavy data-URI. We will optimize the SVG or use a simpler CSS pattern.
+- **Spring Tuning**: Adjust `framer-motion` spring settings for the 3D tilt to be more "snappy" and less CPU-heavy.
+- **CSS `will-change`**: Add `will-change: transform` to cards to enable hardware acceleration.
+
+## 2. Fix Vanishing Images on Hover 🖼️
+The image disappearance is caused by 3D clipping when `overflow: hidden` is combined with `transformStyle: preserve-3d`.
+- **Remove Overflow Clipping**: Remove `overflow-hidden` from [ProductCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/product/ProductCard.tsx#16-61) containers.
+- **Z-Index Layering**: Explicitly set `translateZ` and `z-index` for the image container to ensure it stays above the card background but below the specular highlights.
+
+## 3. Data Bank Polish 📚
+- Improve layout responsiveness.
+- Ensure all links are reactive and "snappy".
+
+## 4. Firebase Hosting Setup 🚀
+- **Initialization**: Guide the user through `firebase init hosting`.
+- **Deployment Script**: Add a `deploy` script to [package.json](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/package.json).
+- **Static Export Configuration**: Configure Next.js for `output: 'export'` if needed, or set up the Firebase Next.js integration.
+
+## Tasks
+- [ ] Optimize [globals.css](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/app/globals.css) and [LiquidCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/LiquidCard.tsx#13-93) for performance.
+- [ ] Fix [ProductCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/product/ProductCard.tsx#16-61) image visibility.
+- [ ] Polish `Data Bank` page.
+- [ ] Create Firebase Hosting instructions.

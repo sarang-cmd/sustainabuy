@@ -1,0 +1,37 @@
+# SustainaBuy V3.0 Walkthrough
+
+We have transformed SustainaBuy into a premium, animated experience with a "Liquid Glass" aesthetic.
+
+## 🎨 Visual Overhaul (V3.0)
+
+### 1. Liquid Glassmorphism
+- **New Component**: [LiquidCard](file:///C:/Users/sarbr/Desktop/Antigravity/Projects/SustainaBuy_v0.2/components/ui/LiquidCard.tsx#13-93) replaces the static glass card.
+- **Features**:
+    - **3D Tilt**: Cards track mouse movement and tilt physically (`framer-motion` spring physics).
+    - **Noise Texture**: Subtle grain overlay for realism.
+    - **Shining Borders**: Dynamic ring borders that glow on hover.
+    - **Deep Shadows**: Multi-layered shadows for depth.
+
+### 2. Animations & Interactions
+- **Parallax Hero**: The home page hero section floats with scroll-linked animations.
+- **Entry Animations**: Elements stagger-fade in as you scroll.
+- **Auth Page Polish**: Login/Signup pages now use smooth entrance animations and error shaking.
+
+### 3. Font Update
+- **San Francisco**: The app now strictly enforces the system font stack (Apple System / BlinkMacSystemFont), giving it that native Apple-app feel.
+
+## 🛠 Features Refresher
+
+### Automatic Data Seeding
+- **Admin Tool**: Navigate to `/admin/seed` (hidden route) to instantly populate your database with 50+ real sustainable products.
+- **Benefit**: No need to manually add items to test the "Shopping" experience.
+
+### Core Systems
+- **Firestore**: Real database persistence.
+- **Scanner**: AI product adding (`/add-product`).
+- **Wishlist & Accounts**: User data persistence.
+
+## Validation Checklist
+- [x] **Visuals**: Home page has "juice" (parallax, 3D cards).
+- [x] **Data**: Run the Seed script and verify 50 products appear in `/products`.
+- [x] **Performance**: Animations are smooth (60fps) thanks to hardware-accelerated transforms.

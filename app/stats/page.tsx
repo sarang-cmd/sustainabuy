@@ -198,6 +198,69 @@ export default function StatsPage() {
                         </div>
                     </motion.div>
                 </div>
+
+                {/* Developer & Project Info */}
+                <motion.div 
+                    variants={itemVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    className="mt-12 mb-8 glass-card p-8 rounded-[32px] border-white/5 bg-white/[0.02]"
+                >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 className="text-2xl font-bold flex items-center gap-3 mb-6">
+                                <Code2 className="w-6 h-6 text-tropical-teal-400" />
+                                Developer Profile
+                            </h3>
+                            <div className="space-y-4">
+                                <div className="flex flex-col">
+                                    <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Developer</span>
+                                    <span className="text-lg font-bold text-white">Sarang</span>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">GitHub</span>
+                                    <a href="https://github.com/sarang-cmd" target="_blank" rel="noopener noreferrer" className="text-cerulean-400 hover:text-cerulean-300 transition-colors font-medium">
+                                        @sarang-cmd
+                                    </a>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Instagram</span>
+                                    <a href="https://instagram.com/aaravdeev" target="_blank" rel="noopener noreferrer" className="text-cerulean-400 hover:text-cerulean-300 transition-colors font-medium">
+                                        @aaravdeev
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-2xl font-bold flex items-center gap-3 mb-6">
+                                <Globe className="w-6 h-6 text-cerulean-400" />
+                                Repository Information
+                            </h3>
+                            <div className="space-y-4">
+                                <div className="flex flex-col">
+                                    <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Repository</span>
+                                    <a href="https://github.com/sarang-cmd/sustainabuy" target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-white hover:text-cerulean-400 transition-colors">
+                                        sarang-cmd/sustainabuy
+                                    </a>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Description</span>
+                                    <span className="text-gray-300">
+                                        A Sustainable Shopping assistant, with full Perplexity AI Integration. Built with Next.js, Tailwind CSS (Glassmorphism), and Firebase.
+                                    </span>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">Live Deployment</span>
+                                    <a href="https://sustainabuy-dev.web.app/" target="_blank" rel="noopener noreferrer" className="text-tea-green-400 hover:text-tea-green-300 transition-colors font-medium">
+                                        sustainabuy-dev.web.app
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
         </div>
     );

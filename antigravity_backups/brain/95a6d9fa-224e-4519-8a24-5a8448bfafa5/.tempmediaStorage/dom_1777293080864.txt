@@ -1,0 +1,143 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+Skip to content
+Navigation Menu
+[0] (40,35)<a aria-label='Homepage' class='tmp-mr-lg-3 color-fg-inherit flex-order-2 js-prevent-focus-on-mobile-nav' href='/' />
+[1] (107,35)<button class='NavDropdown-module__button__PEHWX js-details-target'>Platform />
+[2] (191,35)<button class='NavDropdown-module__button__PEHWX js-details-target'>Solutions />
+[3] (280,35)<button class='NavDropdown-module__button__PEHWX js-details-target'>Resources />
+[4] (382,35)<button class='NavDropdown-module__button__PEHWX js-details-target'>Open Source />
+[5] (482,35)<button class='NavDropdown-module__button__PEHWX js-details-target'>Enterprise />
+[6] (555,35)<a class='NavLink-module__link__EG3d4 MarketingNavigation-module__navLink__hUomM' href='https://github.com/pricing' />
+	[7] (555,35)<span >Pricing />
+[8] (785,35)<button aria-label='Search or jump to…' class='header-search-button placeholder input-button form-control d-flex flex-1 flex-self-stretch flex-items-center no-wrap width-full py-0 pl-2 pr-0 text-left border-0 box-shadow-none' placeholder='Search or jump to...' />
+	[9] (785,35)<div  />
+[10] (836,35)<a class='HeaderMenu-link HeaderMenu-link--sign-in HeaderMenu-button flex-shrink-0 no-underline d-none d-lg-inline-flex border border-lg-0 rounded px-2 py-1' href='/login?return_to=https%3A%2F%2Fgithub.com%2Fsarang-cmd%2Fsustainabuy'>Sign in />
+[11] (906,35)<a class='HeaderMenu-link HeaderMenu-link--sign-up HeaderMenu-button flex-shrink-0 d-flex d-lg-inline-flex no-underline border color-border-default rounded px-2 py-1' href='/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F%3Cuser-name%3E%2F%3Crepo-name%3E&source=header-repo&source_repo=sarang-cmd%2Fsustainabuy'>Sign up />
+[12] (960,35)<button class='Button Button--iconOnly Button--invisible Button--medium AppHeader-button HeaderMenu-link border' id='icon-button-121772e9-a664-46b4-ab0d-0f4c1c8f1064' />
+[13] (91,101)<a class='url fn' href='/sarang-cmd'>sarang-cmd />
+/
+[14] (194,101)<a href='/sarang-cmd/sustainabuy'>sustainabuy />
+Public
+[15] (736,100)<a aria-label='You must be signed in to change notification settings' class='btn-sm btn' href='/login?return_to=%2Fsarang-cmd%2Fsustainabuy' id='repository-details-watch-button'>Notifications />
+[16] (837,100)<a class='btn-sm btn' href='/login?return_to=%2Fsarang-cmd%2Fsustainabuy' id='fork-button'>Fork />
+	[17] (860,100)<span >0 />
+[18] (930,100)<a aria-label='You must be signed in to star a repository' class='tooltipped tooltipped-sw btn-sm btn' href='/login?return_to=%2Fsarang-cmd%2Fsustainabuy' />
+	[19] (930,100)<span >Star />
+	[20] (953,100)<span >0 />
+[21] (58,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item selected' href='/sarang-cmd/sustainabuy' id='code-tab' />
+	[22] (68,155)<span >Code />
+[23] (131,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item' href='/sarang-cmd/sustainabuy/issues' id='issues-tab' />
+	[24] (141,155)<span >Issues />
+[25] (226,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item' href='/sarang-cmd/sustainabuy/pulls' id='pull-requests-tab' />
+	[26] (236,155)<span >Pull requests />
+[27] (323,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item' href='/sarang-cmd/sustainabuy/actions' id='actions-tab' />
+	[28] (333,155)<span >Actions />
+[29] (408,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item' href='/sarang-cmd/sustainabuy/projects' id='projects-tab' />
+	[30] (418,155)<span >Projects />
+[31] (527,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item' href='/sarang-cmd/sustainabuy/security' id='security-and-quality-tab' />
+	[32] (537,155)<span >Security and quality />
+[33] (646,155)<a class='UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item' href='/sarang-cmd/sustainabuy/pulse' id='insights-tab' />
+	[34] (656,155)<span >Insights />
+sarang-cmd/sustainabuy
+[35] (71,217)<button aria-label='main branch' class='prc-Button-ButtonBase-9n-Xk overview-ref-selector width-full RefSelectorAnchoredOverlay-module__RefSelectorOverlayBtn__a3WK3' id='ref-picker-repos-header-ref-selector' />
+	[36] (71,217)<span  />
+		[37] (61,217)<span  />
+			[38] (61,217)<div  />
+				[39] (44,217)<div  />
+				[40] (69,217)<div  />
+					[41] (69,217)<span >main />
+[42] (161,217)<a class='prc-Button-ButtonBase-9n-Xk OverviewContent-module__Button___Uotu' href='/sarang-cmd/sustainabuy/branches' />
+	[43] (161,217)<span  />
+		[44] (171,217)<span >Branches />
+[45] (228,217)<a class='prc-Button-ButtonBase-9n-Xk OverviewContent-module__Button___Uotu' href='/sarang-cmd/sustainabuy/tags' />
+	[46] (228,217)<span  />
+		[47] (238,217)<span >Tags />
+[48] (530,217)<span  />
+	[49] (458,217)<span  />
+	[50] (537,217)<input aria-label='Go to file' class='prc-components-Input-IwWrt' placeholder='Go to file' role='combobox' />
+[51] (668,217)<button class='prc-Button-ButtonBase-9n-Xk' id='_R_94ql3al1d_' />
+	[52] (668,217)<span  />
+		[53] (668,217)<span >Code />
+Folders and files
+Latest commit
+History
+[54] (661,275)<a class='prc-Button-ButtonBase-9n-Xk d-none d-lg-flex LinkButton-module__linkButton__nFnov flex-items-center fgColor-default' href='/sarang-cmd/sustainabuy/commits/main/' />
+	[55] (661,275)<span  />
+		[56] (669,275)<span  />
+			[57] (669,275)<span >8 Commits />
+[58] (370,320)<tr  />
+	[59] (86,321)<a aria-label='.firebase, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/.firebase' title='.firebase'>.firebase />
+[60] (370,361)<tr  />
+	[61] (110,361)<a aria-label='.github/workflows, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/.github/workflows' title='This path skips through empty directories' />
+		[62] (83,361)<span >.github/ />
+		[63] (130,361)<span >workflows />
+[64] (370,401)<tr  />
+	[65] (73,401)<a aria-label='app, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/app' title='app'>app />
+[66] (370,441)<tr  />
+	[67] (96,441)<a aria-label='components, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/components' title='components'>components />
+[68] (370,481)<tr  />
+	[69] (86,481)<a aria-label='contexts, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/contexts' title='contexts'>contexts />
+[70] (370,521)<tr  />
+	[71] (85,521)<a aria-label='example, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/example' title='example'>example />
+[72] (370,561)<tr  />
+	[73] (79,561)<a aria-label='hooks, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/hooks' title='hooks'>hooks />
+[74] (370,601)<tr  />
+	[75] (69,602)<a aria-label='lib, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/lib' title='lib'>lib />
+[76] (370,641)<tr  />
+	[77] (71,642)<a aria-label='out, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/out' title='out'>out />
+[78] (370,682)<tr  />
+	[79] (79,682)<a aria-label='public, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/public' title='public'>public />
+[80] (370,722)<tr  />
+	[81] (77,722)<a aria-label='types, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/types' title='types'>types />
+[82] (370,762)<tr  />
+	[83] (108,762)<a aria-label='v0.2-SNAPSHOT, (Directory)' class='Link--primary' href='/sarang-cmd/sustainabuy/tree/main/v0.2-SNAPSHOT' title='v0.2-SNAPSHOT'>v0.2-SNAPSHOT />
+[84] (370,802)<tr  />
+	[85] (112,802)<a aria-label='.env.local.example, (File)' class='Link--primary' href='/sarang-cmd/sustainabuy/blob/main/.env.local.example' title='.env.local.example'>.env.local.example />
+[86] (370,842)<tr  />
+	[87] (91,842)<a aria-label='.firebaserc, (File)' class='Link--primary' href='/sarang-cmd/sustainabuy/blob/main/.firebaserc' title='.firebaserc'>.firebaserc />
+[88] (370,882)<tr  />
+	[89] (88,882)<a aria-label='.gitignore, (File)' class='Link--primary' href='/sarang-cmd/sustainabuy/blob/main/.gitignore' title='.gitignore'>.gitignore />
+[90] (370,922)<tr  />
+	[91] (86,922)<a aria-label='LICENSE, (File)' class='Link--primary' href='/sarang-cmd/sustainabuy/blob/main/LICENSE' title='LICENSE'>LICENSE />
+[92] (370,962)<tr  />
+	[93] (154,963)<a aria-label='PROJECT_HANDOVER_GUIDE.md, (File)' class='Link--primary' href='/sarang-cmd/sustainabuy/blob/main/PROJECT_HANDOVER_GUIDE.md' title='PROJECT_HANDOVER_GUIDE.md'>PROJECT_HANDOVER_GUIDE.md />
+README.md
+About
+A Susatainable Shopping assistant, with full Perplexity AI Integration.
+[94] (841,313)<a class='text-bold' href='https://sustainabuy-dev.web.app/' role='link' title='https://sustainabuy-dev.web.app/'>sustainabuy-dev.web.app/ />
+Resources
+[95] (780,350)<a class='Link--muted' href='#readme-ov-file'>Readme />
+License
+[96] (789,378)<a class='Link--muted' href='#MIT-1-ov-file'>MIT license />
+[97] (778,406)<a class='Link Link--muted' href='/sarang-cmd/sustainabuy/activity' />
+	[98] (790,406)<span >Activity />
+Stars
+[99] (777,435)<a class='Link Link--muted' href='/sarang-cmd/sustainabuy/stargazers'>stars />
+	[100] (774,435)<strong >0 />
+Watchers
+[101] (788,463)<a class='Link Link--muted' href='/sarang-cmd/sustainabuy/watchers'>watching />
+	[102] (774,463)<strong >0 />
+Forks
+[103] (777,491)<a class='Link Link--muted' href='/sarang-cmd/sustainabuy/forks'>forks />
+	[104] (774,491)<strong >0 />
+[105] (794,520)<a class='Link--muted' href='/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2Fsarang-cmd%2Fsustainabuy&report=sarang-cmd+%28user%29'>Report repository />
+[106] (775,574)<a class='Link--primary no-underline Link' href='/sarang-cmd/sustainabuy/releases'>Releases />
+[107] (771,612)<a class='Link--primary no-underline' href='/sarang-cmd/sustainabuy/tags' />
+	[108] (766,612)<span >1 />
+	[109] (784,612)<span >tags />
+[110] (860,666)<a class='Link--primary no-underline Link d-flex flex-items-center' href='/users/sarang-cmd/packages?repo_name=sustainabuy'>Packages />
+[111] (860,823)<a class='Link--primary no-underline Link d-flex flex-items-center' href='/sarang-cmd/sustainabuy/graphs/contributors'>Contributors />
+Languages
+[112] (787,977)<a class='d-inline-flex flex-items-center flex-nowrap Link--secondary no-underline text-small tmp-mr-3' href='/sarang-cmd/sustainabuy/search?l=html' />
+	[113] (781,977)<span >HTML />
+	[114] (813,977)<span >61.1% />
+[115] (896,977)<a class='d-inline-flex flex-items-center flex-nowrap Link--secondary no-underline text-small tmp-mr-3' href='/sarang-cmd/sustainabuy/search?l=typescript' />
+	[116] (890,977)<span >TypeScript />
+	[117] (935,977)<span >38.7% />
+Other
+0.2%
+
+</current_dom>

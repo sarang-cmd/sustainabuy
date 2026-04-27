@@ -1,0 +1,41 @@
+# SustainaBuy V3.0 - Premium Visuals & Automation Plan
+
+This plan addresses the requirement for "Juicy" UI/UX: high-fidelity liquid glassmorphism, complex animations, parallax effects, and 3D elements, along with automated data population.
+
+## User Review Required
+> [!NOTE]
+> We will use **Framer Motion** for "proper" animations (spring physics, layout transitions) instead of simple CSS.
+> For the "San Francisco" font, we will strictly enforce the Apple System Font stack, which allows the device to render its native font (San Francisco on Mac/iOS, Segoe UI on Windows).
+
+## Proposed Changes
+
+### 1. "Liquid Glass" Design System
+- **Advanced Glass Component**: Upgrade `GlassCard` to use:
+    - Multiple background layers (noise texture + gradients).
+    - Complex borders (shining edges).
+    - Higher blur settings.
+- **Font Stack**: Update Tailwind config to prioritize `-apple-system, BlinkMacSystemFont`.
+
+### 2. High-Fidelity Animations (Framer Motion)
+- **Page Transitions**: Smooth fade/slide between routes.
+- **Scroll Animations**:
+    - Parallax effects on the Landing Page hero.
+    - "Reveal on scroll" for product cards.
+- **Micro-interactions**:
+    - "Juicy" button presses (scale/bounce).
+    - Hover lift effects with 3D tilt.
+
+### 3. 3D Elements & Parallax
+- **3D Card Tilt**: Implement a mouse-tracking tilt effect on Product Cards.
+- **Depth Layers**: Use layered background blobs that move at different speeds (Parallax).
+
+### 4. Authentication Polish ("Full Authenticator")
+- **Animated Forms**: Shake on error, smooth height resizing, slide-in transitions for form fields.
+
+### 5. Automated Data Bank ("Don't add myself")
+- **Seed Script**: Create a utility within the app (hidden or in Admin Settings) to populate Firestore with a robust "Data Bank" of 50+ pre-defined sustainable products (Patagonia, Allbirds, etc.) so the user has an instant library.
+
+## Verification Plan
+1.  **Visual Check**: Verify "Liquid Glass" looks distinct from standard glass.
+2.  **Animation Check**: Scroll down the homepage; elements should flow in. Hover over cards; they should tilt/react.
+3.  **Data Bank**: Run the seed function and verify the `Products` page is full of diverse items without manual scanning.
