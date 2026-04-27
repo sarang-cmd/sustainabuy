@@ -14,7 +14,7 @@ const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export function UIProvider({ children }: { children: React.ReactNode }) {
     const [isLiquidMode, setIsLiquidMode] = useState(true);
-    const [isCompanionEnabled, setIsCompanionEnabled] = useState(true);
+    const [isCompanionEnabled, setIsCompanionEnabled] = useState(false);
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     // Load from LocalStorage

@@ -35,91 +35,80 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:block">
-                        <div className="ml-12 flex items-baseline space-x-10">
-                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors">
+                        <div className="ml-8 flex items-baseline space-x-8">
+                            <Link href="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors whitespace-nowrap">
                                 Home
                             </Link>
-                            <Link href="/products" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors">
+                            <Link href="/products" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors whitespace-nowrap">
                                 Products
                             </Link>
-                            <Link href="/databank" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors">
+                            <Link href="/databank" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-semibold transition-colors whitespace-nowrap">
                                 Data Bank
                             </Link>
                         </div>
                     </div>
 
                     {/* Desktop Actions */}
-                    <div className="hidden md:flex items-center space-x-4">
+                    <div className="hidden md:flex items-center gap-4 shrink-0">
                         <form
                             onSubmit={(e: FormEvent) => {
                                 e.preventDefault();
                                 const query = (e.target as any).search.value;
                                 if (query.trim()) router.push(`/products?q=${encodeURIComponent(query)}`);
                             }}
-                            className="relative group mr-2"
+                            className="relative group"
                         >
                             <input
                                 name="search"
                                 type="text"
-                                placeholder="Search products..."
+                                placeholder="Search..."
                                 suppressHydrationWarning
-                                className="bg-white/5 border border-white/10 rounded-2xl px-5 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cerulean-500/50 w-56 transition-all group-hover:bg-white/10"
+                                className="bg-white/5 border border-white/10 rounded-full px-4 py-1.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cerulean-500/50 w-40 lg:w-56 transition-all group-hover:bg-white/10"
                             />
-                            <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2" suppressHydrationWarning>
+                            <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2" suppressHydrationWarning>
                                 <Search className="h-4 w-4 text-cerulean-400 group-hover:text-cerulean-300 transition-colors drop-shadow-[0_0_5px_rgba(59,130,246,0.5)]" />
                             </button>
                         </form>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className={`!p-2 relative group transition-all duration-500 ${isLiquidMode ? 'text-cerulean-400' : 'text-gray-400'}`}
-                            onClick={toggleLiquidMode}
-                            title="Toggle Liquid Mode"
-                        >
-                            <Droplets className={`h-5 w-5 ${isLiquidMode ? 'animate-pulse' : ''}`} />
-                            {isLiquidMode && (
-                                <motion.span 
-                                    layoutId="liquid-glow"
-                                    className="absolute inset-0 bg-cerulean-500/20 rounded-xl blur-md"
-                                />
-                            )}
-                        </Button>
-                        <Link href="/wishlist">
+
+                        <div className="flex items-center gap-2">
+                            <Link href="/wishlist">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="!p-2 relative group"
+                                    title="View Favorites"
+                                >
+                                    <Heart className={`h-5 w-5 group-hover:text-red-400 transition-colors ${wishlist.length > 0 ? 'text-red-400 fill-current' : 'text-gray-400'}`} />
+                                    {wishlist.length > 0 && (
+                                        <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg shadow-red-500/40">
+                                            {wishlist.length}
+                                        </span>
+                                    )}
+                                </Button>
+                            </Link>
+                            
                             <Button
                                 variant="ghost"
                                 size="sm"
                                 className="!p-2 relative group"
-                                title="View Favorites"
+                                onClick={toggleCart}
                             >
-                                <Heart className={`h-5 w-5 group-hover:text-red-400 transition-colors ${wishlist.length > 0 ? 'text-red-400 fill-current' : 'text-gray-400'}`} />
-                                {wishlist.length > 0 && (
-                                    <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg shadow-red-500/40">
-                                        {wishlist.length}
+                                <ShoppingBag className="h-5 w-5 group-hover:text-cerulean-400 transition-colors" />
+                                {itemCount > 0 && (
+                                    <span className="absolute -top-1 -right-1 h-4 w-4 bg-cerulean-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-cerulean-500/40">
+                                        {itemCount}
                                     </span>
                                 )}
                             </Button>
-                        </Link>
-                        <div className="h-6 w-px bg-white/10 mx-1"></div>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="!p-2 relative group"
-                            onClick={toggleCart}
-                        >
-                            <ShoppingBag className="h-5 w-5 group-hover:text-cerulean-400 transition-colors" />
-                            {itemCount > 0 && (
-                                <span className="absolute -top-1 -right-1 h-4 w-4 bg-cerulean-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse shadow-lg shadow-cerulean-500/40">
-                                    {itemCount}
-                                </span>
-                            )}
-                        </Button>
-                        <div className="h-6 w-px bg-white/10 mx-2"></div>
+                        </div>
+
+                        <div className="w-px h-6 bg-white/10 mx-1"></div>
                         
-                        <div className="flex items-center gap-1 mr-4 bg-white/5 border border-white/10 p-1 rounded-full">
+                        <div className="flex items-center gap-1 bg-white/5 border border-white/10 p-1 rounded-full">
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className={`!p-1.5 !rounded-full transition-all ${isLiquidMode ? 'bg-cerulean-500 text-white' : 'text-gray-500'}`}
+                                className={`!p-1.5 !rounded-full transition-all ${isLiquidMode ? 'bg-cerulean-500 text-white' : 'text-gray-500 hover:text-white'}`}
                                 onClick={toggleLiquidMode}
                                 title={isLiquidMode ? "Disable Liquid Mode" : "Enable Liquid Mode"}
                             >
@@ -128,7 +117,7 @@ export function Navbar() {
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className={`!p-1.5 !rounded-full transition-all ${isCompanionEnabled ? 'bg-tea-green-500 text-white' : 'text-gray-500'}`}
+                                className={`!p-1.5 !rounded-full transition-all ${isCompanionEnabled ? 'bg-tea-green-500 text-white' : 'text-gray-500 hover:text-white'}`}
                                 onClick={toggleCompanion}
                                 title={isCompanionEnabled ? "Disable Companion Mode" : "Enable Companion Mode"}
                             >
@@ -137,7 +126,7 @@ export function Navbar() {
                         </div>
 
                         {user ? (
-                            <Link href="/account">
+                            <Link href="/account" className="ml-2">
                                 <Button variant="secondary" size="sm" className="flex items-center gap-2 pr-4 pl-2 !rounded-full">
                                     <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden">
                                         {userProfile?.photoURL || user.photoURL ? (
@@ -154,12 +143,12 @@ export function Navbar() {
                                 </Button>
                             </Link>
                         ) : (
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 ml-2">
                                 <Link href="/login" className="text-sm font-medium text-gray-400 hover:text-white transition-colors px-2 py-1 whitespace-nowrap">
                                     Log In
                                 </Link>
                                 <Link href="/signup">
-                                    <span className="text-sm font-semibold bg-cerulean-500 hover:bg-cerulean-400 text-white px-4 py-1.5 rounded-full transition-colors whitespace-nowrap cursor-pointer">
+                                    <span className="text-sm font-semibold bg-cerulean-500 hover:bg-cerulean-400 text-white px-4 py-1.5 rounded-full transition-colors whitespace-nowrap cursor-pointer inline-block">
                                         Sign Up
                                     </span>
                                 </Link>

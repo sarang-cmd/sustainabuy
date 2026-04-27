@@ -1,7 +1,16 @@
 import { ProductDetailClient } from "@/components/product/ProductDetailClient";
+import { DEMO_PRODUCTS } from "@/lib/seed";
 
-// Allow dynamic params so new products synced from external sites can be viewed immediately
-export const dynamicParams = true;
+// Pre-render ALL known seed products at build time
+export async function generateStaticParams() {
+    return DEMO_PRODUCTS.map((product) => {
+        const slug = product.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        return { id: slug };
+    });
+}
+
+// Don't 404 on slugs added after build (user-synced products)
+export const dynamicParams = false;
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
