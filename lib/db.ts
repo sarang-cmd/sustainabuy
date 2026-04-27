@@ -18,6 +18,7 @@ import {
 import { Leaf, ShieldCheck } from "lucide-react";
 import { db } from "./firebase";
 import { calculateSustainabilityScore, ProductData } from "./scoring";
+import { getProductSlug } from "./demo-data";
 
 // Types
 export interface UserProfile {
@@ -138,13 +139,15 @@ export async function getWishlistProducts(productIds: string[]): Promise<Product
 
 // Product Operations
 export async function getProduct(id: string): Promise<Product | null> {
-    // 1. Immediate fallback for simple numeric IDs to guarantee resolution even if offline
-    const numericId = parseInt(id);
-    if (!isNaN(numericId) && numericId >= 1 && numericId <= 10) {
+    // 1. Immediate fallback for simple numeric IDs or legacy demo- IDs
+    const numericId = parseInt(id.replace('demo-', ''));
+    if (!isNaN(numericId) && (id.startsWith('demo-') || (numericId >= 1 && numericId <= 10))) {
         try {
-            const { DEMO_PRODUCTS } = (await import("./seed")) as any;
-            const index = (numericId - 1) % DEMO_PRODUCTS.length;
-            return { ...DEMO_PRODUCTS[index], id: id } as Product;
+            const { DEMO_PRODUCTS } = (await import("./demo-data")) as any;
+            const index = id.startsWith('demo-') ? numericId : (numericId - 1);
+            const safeIndex = Math.max(0, Math.min(index, DEMO_PRODUCTS.length - 1));
+            const product = DEMO_PRODUCTS[safeIndex];
+            return { ...product, id: id } as Product;
         } catch (e) {
             console.error("Critical fallback failure:", e);
         }
@@ -173,13 +176,18 @@ export async function getProduct(id: string): Promise<Product | null> {
 
             return product;
         }
+
+        // If not in Firestore, attempt to find in demo products by slug
+        const { DEMO_PRODUCTS } = await import("./demo-data");
+        const found = DEMO_PRODUCTS.find((p: any) => getProductSlug(p.name) === id);
+        if (found) return { ...found, id } as Product;
         
         return null;
     } catch (error) {
         console.error("Error getting product, using fallback check:", error);
         // Attempt to find in demo products by slug
-        const { DEMO_PRODUCTS } = (await import("./seed")) as any;
-        const found = DEMO_PRODUCTS.find((p: any) => p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === id);
+        const { DEMO_PRODUCTS } = await import("./demo-data");
+        const found = DEMO_PRODUCTS.find((p: any) => getProductSlug(p.name) === id);
         if (found) return { ...found, id } as Product;
         return null;
     }
@@ -199,8 +207,8 @@ export async function getAllProducts(category?: string): Promise<Product[]> {
         // If empty, return some local demo data as fallback to prevent "empty app" feel
         if (querySnapshot.empty) {
             console.log("No products in Firestore, returning demo fallback.");
-            const { DEMO_PRODUCTS } = await import("./seed");
-            return DEMO_PRODUCTS.map((p: any, idx: number) => ({ ...p, id: `demo-${idx}` } as Product));
+            const { DEMO_PRODUCTS } = await import("./demo-data");
+            return DEMO_PRODUCTS.map((p: any) => ({ ...p, id: getProductSlug(p.name) } as Product));
         }
 
         return querySnapshot.docs.map(doc => {
@@ -218,8 +226,8 @@ export async function getAllProducts(category?: string): Promise<Product[]> {
         console.error("Firestore error, using demo fallback:", error);
         // Fallback to imported demo products
         try {
-            const { DEMO_PRODUCTS } = await import("./seed");
-            return DEMO_PRODUCTS.map((p: any, idx: number) => ({ ...p, id: `demo-${idx}` } as Product));
+            const { DEMO_PRODUCTS } = await import("./demo-data");
+            return DEMO_PRODUCTS.map((p: any) => ({ ...p, id: getProductSlug(p.name) } as Product));
         } catch (e) {
             console.error("Critical: Could not load demo products fallback.");
             return [];
