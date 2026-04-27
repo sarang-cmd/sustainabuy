@@ -2,24 +2,24 @@ import { db } from "./firebase";
 import { collection, addDoc, Timestamp, doc, setDoc } from "firebase/firestore";
 import { Product } from "./db";
 
-const DEMO_PRODUCTS: Omit<Product, "id" | "createdAt">[] = [
+export const DEMO_PRODUCTS: Omit<Product, "id" | "createdAt">[] = [
     {
-        name: "Everleaf Runner Pro",
-        brand: "Everleaf",
-        description: "85% recycled ocean-bound rPET upper, FSC-certified natural rubber outsole. OEKO-TEX® 100 certified dyes throughout.",
-        materials: ["Recycled rPET", "Natural Rubber", "Organic Cotton"],
-        certifications: ["Eco Certified", "Fair Trade"],
-        origin: "Portugal",
-        price: 129.00,
+        name: "Eco-Knit Sneaker",
+        brand: "Allbirds",
+        description: "The peak of sustainable performance. 85% recycled ocean-bound rPET upper, FSC-certified natural rubber outsole. OEKO-TEX® 100 certified dyes throughout.",
+        materials: ["Eucalyptus Fiber", "Sugarcane SweetFoam"],
+        certifications: ["B Corp", "FSC Certified", "Carbon Neutral"],
+        origin: "Vietnam",
+        price: 98.00,
         image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=800",
         score: 92,
         baseScore: 92,
         thumbnail: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=200",
         category: "Footwear",
         breakdown: {
-            materials: 96,
+            materials: 94,
             manufacturing: 88,
-            supplyChain: 92,
+            supplyChain: 90,
             longevity: 85,
             circularity: 98
         }
@@ -27,15 +27,15 @@ const DEMO_PRODUCTS: Omit<Product, "id" | "createdAt">[] = [
     {
         name: "Recycled Denim Jacket",
         brand: "Patagonia",
-        description: "Made from 100% recycled denim and organic cotton. Designed for durability and repairability.",
-        materials: ["Recycled Denim", "Organic Cotton"],
-        certifications: ["B Corp", "Fair Trade"],
+        description: "A warm, low-bulk full-zip jacket made of soft, sweater-knit 100% recycled polyester fleece. Fair Trade Certified™ sewn.",
+        materials: ["100% Recycled Polyester"],
+        certifications: ["B Corp", "Fair Trade", "Bluesign"],
         origin: "Vietnam",
         price: 199.00,
-        image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&q=80&w=800",
+        image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800",
         score: 88,
         baseScore: 88,
-        thumbnail: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&q=80&w=200",
+        thumbnail: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=200",
         category: "Clothing",
         breakdown: {
             materials: 92,
@@ -48,9 +48,9 @@ const DEMO_PRODUCTS: Omit<Product, "id" | "createdAt">[] = [
     {
         name: "Bamboo Organic Tee",
         brand: "Organic Basics",
-        description: "Soft, breathable, and highly sustainable t-shirt made from organic bamboo fibers.",
-        materials: ["Organic Bamboo"],
-        certifications: ["GOTS Certified"],
+        description: "Soft, breathable, and highly sustainable t-shirt made from organic bamboo fibers. Designed to last.",
+        materials: ["Organic Bamboo Fiber"],
+        certifications: ["GOTS Certified", "Vegan"],
         origin: "Turkey",
         price: 45.00,
         image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800",
@@ -69,7 +69,7 @@ const DEMO_PRODUCTS: Omit<Product, "id" | "createdAt">[] = [
     {
         name: "Solar Charging Backpack",
         brand: "Solgaard",
-        description: "A high-tech backpack with integrated solar panels made from ocean-bound plastic.",
+        description: "A high-tech backpack with integrated solar panels made from ocean-bound plastic. The future of travel.",
         materials: ["Ocean Plastic", "Solar Panels"],
         certifications: ["Certified B Corp"],
         origin: "China",
@@ -88,86 +88,23 @@ const DEMO_PRODUCTS: Omit<Product, "id" | "createdAt">[] = [
         }
     },
     {
-        name: "Ethically Sourced Coffee",
-        brand: "Fair Grounds",
-        description: "Premium shade-grown coffee from regenerative farms in Colombia.",
-        materials: ["Roasted Coffee Beans"],
-        certifications: ["Fair Trade", "Organic"],
-        origin: "Colombia",
-        price: 18.00,
-        image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=800",
-        score: 94,
-        baseScore: 94,
-        thumbnail: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=200",
-        category: "Food",
+        name: "Everleaf Runner Pro",
+        brand: "Everleaf",
+        description: "Flagship sustainable performance runner. 100% carbon neutral design.",
+        materials: ["Recycled rPET", "Natural Rubber"],
+        certifications: ["Eco Certified", "Fair Trade"],
+        origin: "Portugal",
+        price: 129.00,
+        image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=800",
+        score: 96,
+        baseScore: 96,
+        thumbnail: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=200",
+        category: "Footwear",
         breakdown: {
-            materials: 96,
-            manufacturing: 90,
-            supplyChain: 98,
-            longevity: 100,
-            circularity: 80
-        }
-    },
-    {
-        name: "Sustainable Smartphone Case",
-        brand: "Pela",
-        description: "The world's first 100% compostable phone case made from flax and bio-polymers.",
-        materials: ["Flax Shive", "Bio-polymer"],
-        certifications: ["Climate Neutral"],
-        origin: "Canada",
-        price: 35.00,
-        image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800",
-        score: 97,
-        baseScore: 97,
-        thumbnail: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=200",
-        category: "Technology",
-        breakdown: {
-            materials: 100,
-            manufacturing: 95,
-            supplyChain: 92,
-            longevity: 85,
-            circularity: 100
-        }
-    },
-    {
-        name: "Organic Cotton Bedding Set",
-        brand: "Coyuchi",
-        description: "100% GOTS certified organic cotton bedding, produced without harmful chemicals.",
-        materials: ["Organic Cotton"],
-        certifications: ["GOTS Certified", "Fair Trade"],
-        origin: "India",
-        price: 188.00,
-        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800",
-        score: 90,
-        baseScore: 90,
-        thumbnail: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=200",
-        category: "Home",
-        breakdown: {
-            materials: 95,
-            manufacturing: 88,
-            supplyChain: 85,
-            longevity: 92,
-            circularity: 90
-        }
-    },
-    {
-        name: "Zero Waste Shaving Kit",
-        brand: "Leaf Shave",
-        description: "Plastic-free metal razor designed to last a lifetime, replacing thousands of disposables.",
-        materials: ["Zinc", "Stainless Steel"],
-        certifications: ["Climate Neutral"],
-        origin: "USA",
-        price: 84.00,
-        image: "https://images.unsplash.com/photo-1626285493db3-8f0a3d4400e2?auto=format&fit=crop&q=80&w=800",
-        score: 98,
-        baseScore: 98,
-        thumbnail: "https://images.unsplash.com/photo-1626285493db3-8f0a3d4400e2?auto=format&fit=crop&q=80&w=200",
-        category: "Personal Care",
-        breakdown: {
-            materials: 100,
-            manufacturing: 94,
-            supplyChain: 90,
-            longevity: 100,
+            materials: 98,
+            manufacturing: 92,
+            supplyChain: 94,
+            longevity: 90,
             circularity: 98
         }
     }

@@ -188,32 +188,49 @@ function ProductsContent() {
                                 </Link>
                                 <Button
                                     variant="secondary"
-                                    className="h-14 w-14 !p-0 !rounded-2xl border-white/10 hover:bg-white/5"
+                                    className="h-14 w-14 !p-0 !rounded-2xl border-white/10 hover:bg-white/5 hover:text-red-400 group/reset"
                                     onClick={async () => {
-                                        const { syncWithOpenFoodFacts } = await import('@/lib/data-bank-sync');
-                                        const result = await syncWithOpenFoodFacts();
-                                        if (result.success) {
-                                            alert(`Successfully synced ${result.count} products from Open Food Facts!`);
+                                        if (confirm("Are you sure you want to clear the entire local Data Bank?")) {
+                                            const { clearProducts } = await import('@/lib/db');
+                                            await clearProducts();
                                             window.location.reload();
-                                        } else {
-                                            alert("Sync failed. Check console for details.");
                                         }
                                     }}
-                                    title="Sync with Open Food Facts"
+                                    title="Clear Data Bank"
                                 >
-                                    <Database className="h-5 w-5" />
+                                    <RotateCcw className="h-5 w-5 group-hover/reset:rotate-[-45deg] transition-transform" />
                                 </Button>
                                 <Button
                                     variant="secondary"
-                                    className="h-14 w-14 !p-0 !rounded-2xl border-white/10 hover:bg-white/5"
+                                    className="h-14 px-6 flex items-center gap-2 !rounded-2xl border-white/10 hover:bg-white/5 whitespace-nowrap"
                                     onClick={async () => {
-                                        const { seedDemoProducts } = await import('@/lib/seed');
-                                        await seedDemoProducts();
-                                        window.location.reload();
+                                        setIsSearchingGlobal(true);
+                                        try {
+                                            // Using GET for maximum compatibility in dev environments
+                                            const response = await fetch('/api/sync');
+                                            const result = await response.json();
+                                            
+                                            if (response.ok || response.status === 207) {
+                                                alert(`System Synced! Indexing successful.`);
+                                                window.location.reload();
+                                            } else {
+                                                alert(`Sync Issue: ${result.error || 'Server error'}`);
+                                            }
+                                        } catch (error) {
+                                            console.error("Sync fetch error:", error);
+                                            alert("Failed to reach sync service. Please ensure the dev server is running and refresh the page.");
+                                        } finally {
+                                            setIsSearchingGlobal(false);
+                                        }
                                     }}
-                                    title="Seed Demo Data"
+                                    title="Sync with Global Data Bank"
                                 >
-                                    <Filter className="h-5 w-5" />
+                                    {isSearchingGlobal ? (
+                                        <div className="h-5 w-5 border-2 border-cerulean-500 border-t-transparent rounded-full animate-spin" />
+                                    ) : (
+                                        <Database className="h-5 w-5 text-cerulean-400" />
+                                    )}
+                                    <span className="hidden sm:inline">Sync Data Bank</span>
                                 </Button>
                             </div>
                         </div>

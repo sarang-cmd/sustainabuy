@@ -1,7 +1,11 @@
 /**
  * SustainaBuy Global Indexer Service
- * Implements the "Idealo Clone" logic by aggregating data from external sources.
+ * Implements logic to aggregate data from external sources and the internal Data Bank.
  */
+
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
+import { db } from "../firebase";
+import { Product } from "../db";
 
 export interface ScrapedProduct {
     name: string;
@@ -11,71 +15,108 @@ export interface ScrapedProduct {
     url: string;
     source: string;
     category?: string;
+    score?: number;
 }
 
 /**
- * MOCK Discovery Layer: Simulates searching the web via Brave Search API
+ * Discovery Layer: Searches our internal high-quality index first
  */
-async function discoverProductURLs(query: string): Promise<string[]> {
-    console.log(`[Indexer] Discovering URLs for: ${query}`);
+async function searchInternalIndex(queryStr: string): Promise<Product[]> {
+    const productsRef = collection(db, "products");
+    const q = query(productsRef, limit(100)); // In a real app, we'd use Algolia or better Firestore queries
+    const snapshot = await getDocs(q);
     
-    // In production, this would be a real call to Brave Search API
-    // const response = await fetch(`https://api.search.brave.com/res/v1/web/search?q=buy ${query} sustainable`, { ... });
+    const results = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Product));
     
-    // Mocking some results based on common sustainable retailers
-    return [
-        `https://www.patagonia.com/search/?q=${encodeURIComponent(query)}`,
-        `https://www.allbirds.com/pages/search-results?q=${encodeURIComponent(query)}`,
-        `https://www.ecosia.org/search?q=${encodeURIComponent(query)}+sustainable+brands`
+    // Simple fuzzy match for demo
+    const searchTokens = queryStr.toLowerCase().split(' ');
+    return results.filter(p => 
+        searchTokens.some(token => 
+            p.name.toLowerCase().includes(token) || 
+            p.brand.toLowerCase().includes(token) ||
+            p.category?.toLowerCase().includes(token)
+        )
+    );
+}
+
+/**
+ * Extraction Layer: Simulates searching external sustainable marketplaces
+ * In a real production app, this would call a set of scrapers or search APIs.
+ */
+async function discoverExternalProducts(queryStr: string): Promise<ScrapedProduct[]> {
+    console.log(`[Indexer] Discovering external products for: ${queryStr}`);
+    
+    // Mocking real-world sustainable brand results
+    const externalDatabase: ScrapedProduct[] = [
+        {
+            name: "Eco-Conscious Denim",
+            brand: "Levi's Water<Less",
+            price: 89.00,
+            image: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&q=80&w=400",
+            url: "https://www.levi.com",
+            source: "Levi Strauss & Co.",
+            category: "Clothing",
+            score: 75
+        },
+        {
+            name: "Recycled Wool Cap",
+            brand: "Fjällräven",
+            price: 45.00,
+            image: "https://images.unsplash.com/photo-1534215754734-18e55d13e346?auto=format&fit=crop&q=80&w=400",
+            url: "https://www.fjallraven.com",
+            source: "Fjällräven Official",
+            category: "Accessories",
+            score: 88
+        },
+        {
+            name: "Sustainably Harvested Coffee",
+            brand: "Stumptown",
+            price: 20.00,
+            image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=400",
+            url: "https://www.stumptowncoffee.com",
+            source: "Stumptown Coffee Roasters",
+            category: "Food",
+            score: 82
+        }
     ];
+
+    const searchTokens = queryStr.toLowerCase().split(' ');
+    return externalDatabase.filter(p => 
+        searchTokens.some(token => 
+            p.name.toLowerCase().includes(token) || 
+            p.brand.toLowerCase().includes(token) ||
+            p.category?.toLowerCase().includes(token)
+        )
+    );
 }
 
 /**
- * MOCK Extraction Layer: Simulates scraping a product page
+ * Performs a global search across internal bank and external "web"
  */
-async function scrapeProductData(url: string): Promise<ScrapedProduct | null> {
-    console.log(`[Indexer] Scraping data from: ${url}`);
-    
-    // In production, use ScrapingBee/Apify here
-    // const response = await fetch(`https://app.scrapingbee.com/api/v1/?api_key=...&url=${url}`);
-    
-    // Mocking structured data extraction
-    if (url.includes('patagonia')) {
-        return {
-            name: "Recycled Tech Tee",
-            brand: "Patagonia",
-            price: 55.00,
-            image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
-            url: url,
-            source: "Patagonia Official",
-            category: "Clothing"
-        };
-    }
-    
-    if (url.includes('allbirds')) {
-        return {
-            name: "Tree Dasher 2",
-            brand: "Allbirds",
-            price: 135.00,
-            image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
-            url: url,
-            source: "Allbirds Store",
-            category: "Footwear"
-        };
-    }
-
-    return null;
-}
-
-/**
- * Performs a global search across the internet
- */
-export async function performGlobalSearch(query: string): Promise<ScrapedProduct[]> {
+export async function performGlobalSearch(queryStr: string): Promise<ScrapedProduct[]> {
     try {
-        const urls = await discoverProductURLs(query);
-        const results = await Promise.all(urls.map(url => scrapeProductData(url)));
+        const [internalResults, externalResults] = await Promise.all([
+            searchInternalIndex(queryStr),
+            discoverExternalProducts(queryStr)
+        ]);
         
-        return results.filter((r): r is ScrapedProduct => r !== null);
+        // Map internal products to ScrapedProduct format for the search result view
+        const mappedInternal: ScrapedProduct[] = internalResults.map(p => ({
+            name: p.name,
+            brand: p.brand,
+            price: p.price,
+            image: p.image,
+            url: `/products/${p.id}`,
+            source: "SustainaBuy Data Bank",
+            category: p.category,
+            score: p.score
+        }));
+
+        // Combine and de-duplicate (by name)
+        const combined = [...mappedInternal, ...externalResults];
+        const unique = Array.from(new Map(combined.map(item => [item.name, item])).values());
+        
+        return unique;
     } catch (error) {
         console.error("Global search failed:", error);
         return [];
