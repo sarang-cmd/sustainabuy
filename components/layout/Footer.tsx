@@ -23,7 +23,7 @@ export function Footer() {
                         <ul className="space-y-3">
                             <li><Link href="/products" className="text-gray-400 hover:text-white transition-colors text-sm">Browse Products</Link></li>
                             <li><Link href="/databank" className="text-gray-400 hover:text-white transition-colors text-sm">Sustainability Data Bank</Link></li>
-                            <li><Link href="/compare" className="text-gray-400 hover:text-white transition-colors text-sm">Compare Items</Link></li>
+                            <li><Link href="/stats" className="text-gray-400 hover:text-white transition-colors text-sm">Project Statistics</Link></li>
                         </ul>
                     </div>
 

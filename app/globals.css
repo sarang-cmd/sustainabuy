@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Liquid Mode Effects */
+.liquid-mode {
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-blur: 20px;
+}
+
+.liquid-mode .glass-card {
+  background: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.liquid-mode .liquid-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.15;
+  animation: float 20s infinite alternate;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, 10%) scale(1.1); }
+  66% { transform: translate(-5%, 15%) scale(0.9); }
+  100% { transform: translate(5%, -5%) scale(1.05); }
+}
+
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 12, 21, 24;

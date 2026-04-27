@@ -2,18 +2,23 @@
 
 import Link from "next/link";
 import { useState, FormEvent } from "react";
-import { Menu, X, Leaf, Search, ShoppingBag } from "lucide-react";
+import { Menu, X, Leaf, Search, ShoppingBag, Droplets, Heart } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
+import { useUI } from "@/contexts/UIContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 import { CartDrawer } from "@/components/ui/CartDrawer";
+import { motion } from "framer-motion";
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const { user, userProfile } = useAuth();
     const router = useRouter();
     const { toggleCart, itemCount } = useCart();
+    const { isLiquidMode, toggleLiquidMode } = useUI();
+    const { wishlist } = useWishlist();
 
     return (
         <nav className="glass-header">
@@ -65,6 +70,37 @@ export function Navbar() {
                                 <Search className="h-4 w-4 text-gray-500 group-hover:text-cerulean-400 transition-colors" />
                             </button>
                         </form>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className={`!p-2 relative group transition-all duration-500 ${isLiquidMode ? 'text-cerulean-400' : 'text-gray-400'}`}
+                            onClick={toggleLiquidMode}
+                            title="Toggle Liquid Mode"
+                        >
+                            <Droplets className={`h-5 w-5 ${isLiquidMode ? 'animate-pulse' : ''}`} />
+                            {isLiquidMode && (
+                                <motion.span 
+                                    layoutId="liquid-glow"
+                                    className="absolute inset-0 bg-cerulean-500/20 rounded-xl blur-md"
+                                />
+                            )}
+                        </Button>
+                        <Link href="/wishlist">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                className="!p-2 relative group"
+                                title="View Favorites"
+                            >
+                                <Heart className={`h-5 w-5 group-hover:text-red-400 transition-colors ${wishlist.length > 0 ? 'text-red-400 fill-current' : 'text-gray-400'}`} />
+                                {wishlist.length > 0 && (
+                                    <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg shadow-red-500/40">
+                                        {wishlist.length}
+                                    </span>
+                                )}
+                            </Button>
+                        </Link>
+                        <div className="h-6 w-px bg-white/10 mx-1"></div>
                         <Button
                             variant="ghost"
                             size="sm"

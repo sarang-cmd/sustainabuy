@@ -25,6 +25,8 @@ import { MultiStageLoader } from "@/components/ui/MultiStageLoader";
 import { LiquidCard } from "@/components/ui/LiquidCard";
 import { Button } from "@/components/ui/Button";
 import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/contexts/ToastContext";
+import { useWishlist } from "@/contexts/WishlistContext";
 
 interface ProductDetailClientProps {
     id: string;
@@ -32,11 +34,13 @@ interface ProductDetailClientProps {
 
 export function ProductDetailClient({ id }: ProductDetailClientProps) {
     const { addItem } = useCart();
+    const { showToast } = useToast();
+    const { toggleWishlist, isInWishlist } = useWishlist();
+    
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [selectedSeller, setSelectedSeller] = useState("EcoStride");
-    const [isWishlisted, setIsWishlisted] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -59,6 +63,27 @@ export function ProductDetailClient({ id }: ProductDetailClientProps) {
         fetchProduct();
         window.scrollTo(0, 0);
     }, [id]);
+
+    const handleShare = async () => {
+        if (!product) return;
+        const shareData = {
+            title: `SustainaBuy - ${product.name}`,
+            text: `Check out this sustainable find: ${product.name} by ${product.brand}`,
+            url: window.location.href,
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+                showToast("Shared successfully!");
+            } else {
+                await navigator.clipboard.writeText(window.location.href);
+                showToast("Link copied to clipboard!");
+            }
+        } catch (err) {
+            console.error("Share failed:", err);
+        }
+    };
 
     if (loading) {
         return <MultiStageLoader onComplete={() => setLoading(false)} duration={1800} />;
@@ -129,15 +154,22 @@ export function ProductDetailClient({ id }: ProductDetailClientProps) {
                     </Link>
                     
                     <div className="flex items-center gap-4">
-                        <button 
-                            onClick={() => setIsWishlisted(!isWishlisted)}
-                            className={`p-3 rounded-full border transition-all ${isWishlisted ? 'bg-red-500/10 border-red-500/30 text-red-500' : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'}`}
+                        <motion.button 
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => toggleWishlist(product)}
+                            className={`p-3 rounded-full border transition-all ${isInWishlist(id) ? 'bg-red-500/10 border-red-500/30 text-red-500' : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'}`}
                         >
-                            <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
-                        </button>
-                        <button className="p-3 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+                            <Heart className={`w-5 h-5 ${isInWishlist(id) ? 'fill-current' : ''}`} />
+                        </motion.button>
+                        <motion.button 
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={handleShare}
+                            className="p-3 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                        >
                             <Share2 className="w-5 h-5" />
-                        </button>
+                        </motion.button>
                     </div>
                 </header>
 
@@ -302,9 +334,10 @@ export function ProductDetailClient({ id }: ProductDetailClientProps) {
                                 size="lg" 
                                 className="flex-1 h-16 text-lg font-black group relative overflow-hidden"
                                 onClick={() => {
-                                    addItem(product);
-                                    // Visual feedback
-                                    alert(`${product.name} added to your collection!`);
+                                    if (product) {
+                                        addItem(product);
+                                        showToast(`${product.name} added to your collection!`);
+                                    }
                                 }}
                             >
                                 <div className="absolute inset-0 bg-gradient-to-r from-cerulean-600 to-cerulean-400 opacity-0 group-hover:opacity-100 transition-opacity" />
