@@ -30,6 +30,7 @@ export function generateMetaOffers(group: ProductGroup, variant: ProductVariant)
             deliveryTime: index % 2 === 0 ? "2-3 days" : "5-7 days",
             stockStatus: index === 3 ? "low_stock" : "in_stock",
             buyLink: searchLink,
+            score: group.baseScore || 0,
             isVerified: index % 2 === 0
         };
     });

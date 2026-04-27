@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { CartProvider } from '@/contexts/CartContext';
+import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
     title: 'SustainaBuy - Sustainable Shopping Assistant',
@@ -16,17 +15,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body className="flex flex-col min-h-screen">
-                <AuthProvider>
-                    <CartProvider>
-                        <Navbar />
-                        <main className="flex-grow pt-4">
-                            {children}
-                        </main>
-                        <Footer />
-                    </CartProvider>
-                </AuthProvider>
+        <html lang="en" suppressHydrationWarning>
+            <body className="flex flex-col min-h-screen" suppressHydrationWarning>
+                <Providers>
+                    <Navbar />
+                    <main className="flex-grow pt-4">
+                        {children}
+                    </main>
+                    <Footer />
+                </Providers>
             </body>
         </html>
     );

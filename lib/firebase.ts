@@ -1,6 +1,11 @@
 import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+    getFirestore,
+    initializeFirestore,
+    persistentLocalCache,
+    persistentMultipleTabManager
+} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBrpmL329XEEM0GHp5z_7qEeQyHA_gLlug",
@@ -22,6 +27,12 @@ if (!getApps().length) {
 }
 
 const auth = getAuth(app);
-const db = getFirestore(app);
+
+// Initialize Firestore with offline persistence
+const db = initializeFirestore(app, {
+    localCache: persistentLocalCache({
+        tabManager: persistentMultipleTabManager()
+    })
+});
 
 export { app, auth, db };

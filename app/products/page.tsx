@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ProductCard } from "@/components/product/ProductCard";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { Search, Filter, ScanLine } from "lucide-react";
+import { Search, Filter, ScanLine, RotateCcw, Leaf } from "lucide-react";
 import { getAllProducts, Product } from "@/lib/db";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -128,183 +128,216 @@ function ProductsContent() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-12 max-w-7xl">
-            {/* Hero Section */}
-            <div className="mb-16">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                    <div>
-                        <h1 className="text-4xl font-bold text-white tracking-tight mb-2">Sustainable Finds</h1>
-                        <p className="text-gray-400">Discover and support eco-conscious brands.</p>
-                    </div>
-
-                    <div className="flex w-full md:w-auto gap-3">
-                        <div className="relative flex-grow md:w-80 group">
-                            <Input
-                                placeholder="Search by name or brand..."
-                                icon={<Search className="h-5 w-5 text-gray-400 group-focus-within:text-cerulean-400 transition-colors" />}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                className="bg-jet-black-900/50 border-white/10"
-                            />
-                        </div>
-                        <Link href="/add-product">
-                            <Button variant="primary" className="flex items-center gap-2 shadow-xl shadow-cerulean-500/20">
-                                <ScanLine className="h-5 w-5" />
-                                <span className="hidden sm:inline">Add Product</span>
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Categories */}
-                <div className="flex overflow-x-auto pb-4 gap-3 no-scrollbar">
-                    {categories.map(category => (
-                        <button
-                            key={category}
-                            onClick={() => setSelectedCategory(category)}
-                            className={`px-6 py-2.5 rounded-2xl text-sm font-semibold whitespace-nowrap transition-all duration-300 border ${selectedCategory === category
-                                ? "bg-cerulean-500 border-cerulean-400 text-white shadow-lg shadow-cerulean-500/30 scale-105"
-                                : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10"
-                                }`}
-                        >
-                            {category}
-                        </button>
-                    ))}
-                </div>
+        <div className="relative min-h-screen">
+            {/* Background Blobs */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <div className="absolute top-[15%] right-[10%] w-[500px] h-[500px] bg-cerulean-500/10 rounded-full blur-[130px] animate-pulse"></div>
+                <div className="absolute bottom-[25%] left-[10%] w-[600px] h-[600px] bg-tropical-teal-500/10 rounded-full blur-[120px] animate-pulse delay-700"></div>
             </div>
 
-            {/* Recommendations Section - Only show if not searching/filtering */}
-            {selectedCategory === "All" && debouncedSearch === "" && !loading && (
+            <div className="container mx-auto px-4 py-12 max-w-7xl relative z-10">
+                {/* Hero Section */}
                 <div className="mb-20">
-                    <div className="flex items-center gap-2 mb-8">
-                        <div className="h-2 w-2 rounded-full bg-tea-green-500 animate-pulse" />
-                        <h2 className="text-2xl font-bold text-white">Recommended for You</h2>
-                    </div>
-                    <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-                    >
-                        {recommendedProducts.map(product => (
-                            <motion.div key={`rec-${product.id}`} variants={itemVariants}>
-                                <ProductCard {...product} />
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
+                        <div className="space-y-2">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-2 text-cerulean-400 text-xs font-bold uppercase tracking-[0.3em] mb-2"
+                            >
+                                <div className="h-1 w-8 bg-cerulean-500/50 rounded-full" />
+                                Curated Marketplace
                             </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
-            )}
+                            <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-none">Sustainable <span className="text-transparent bg-clip-text bg-gradient-to-r from-cerulean-400 to-tea-green-400">Finds.</span></h1>
+                            <p className="text-gray-400 text-lg max-w-xl leading-relaxed">Discover and support eco-conscious brands committed to transparency and the planet.</p>
+                        </div>
 
-            {/* Recently Viewed Section */}
-            {recentlyViewed.length > 0 && debouncedSearch === "" && selectedCategory === "All" && (
-                <div className="mb-20">
-                    <div className="flex items-center gap-2 mb-8">
-                        <div className="h-2 w-2 rounded-full bg-cerulean-500" />
-                        <h2 className="text-2xl font-bold text-white">Recently Viewed</h2>
-                    </div>
-                    <div className="flex gap-6 overflow-x-auto pb-6 no-scrollbar">
-                        {recentlyViewed.map(product => (
-                            <div key={`recent-${product.id}`} className="w-72 flex-shrink-0">
-                                <ProductCard {...product} />
+                        <div className="flex w-full md:w-auto flex-col sm:flex-row gap-4">
+                            <div className="relative flex-grow md:w-96 group">
+                                <div className="absolute inset-0 bg-cerulean-500/10 blur-xl rounded-full opacity-0 group-focus-within:opacity-100 transition-opacity" />
+                                <Input
+                                    placeholder="Search by name, brand or category..."
+                                    icon={<Search className="h-5 w-5 text-gray-400 group-focus-within:text-cerulean-400 transition-colors" />}
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="bg-jet-black-900/60 border-white/10 h-14 !rounded-2xl relative z-10 focus:border-cerulean-500/50"
+                                />
                             </div>
+                            <div className="flex gap-3">
+                                <Link href="/add-product" className="flex-grow sm:flex-grow-0">
+                                    <Button variant="primary" className="h-14 px-8 flex items-center gap-2 shadow-2xl shadow-cerulean-500/20 !rounded-2xl w-full">
+                                        <ScanLine className="h-5 w-5" />
+                                        <span>Add Product</span>
+                                    </Button>
+                                </Link>
+                                <Button
+                                    variant="secondary"
+                                    className="h-14 w-14 !p-0 !rounded-2xl border-white/10 hover:bg-white/5"
+                                    onClick={async () => {
+                                        const { seedDemoProducts } = await import('@/lib/seed');
+                                        await seedDemoProducts();
+                                        window.location.reload();
+                                    }}
+                                    title="Seed Demo Data"
+                                >
+                                    <Filter className="h-5 w-5" />
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Categories */}
+                    <div className="flex overflow-x-auto pb-4 gap-4 no-scrollbar">
+                        {categories.map((category, idx) => (
+                            <motion.button
+                                key={category}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.05 }}
+                                onClick={() => setSelectedCategory(category)}
+                                className={`px-8 py-3 rounded-2xl text-sm font-bold whitespace-nowrap transition-all duration-300 border ${selectedCategory === category
+                                    ? "bg-cerulean-500 border-cerulean-400 text-white shadow-xl shadow-cerulean-500/30 scale-105"
+                                    : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10 hover:border-white/10"
+                                    }`}
+                            >
+                                {category}
+                            </motion.button>
                         ))}
                     </div>
                 </div>
-            )}
 
-            {/* Trending Brands Section */}
-            {debouncedSearch === "" && selectedCategory === "All" && (
+                {/* Recommendations Section - Only show if not searching/filtering */}
+                {selectedCategory === "All" && debouncedSearch === "" && !loading && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className="mb-24"
+                    >
+                        <div className="flex items-center justify-between mb-10">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-tea-green-500/20 rounded-xl text-tea-green-400">
+                                    <Leaf className="h-6 w-6" />
+                                </div>
+                                <div>
+                                    <h2 className="text-3xl font-bold text-white tracking-tight">Handpicked for You</h2>
+                                    <p className="text-xs text-gray-500 uppercase tracking-widest mt-1 font-bold">Top Scoring Sustainable Goods</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {recommendedProducts.map(product => (
+                                <ProductCard key={`rec-${product.id}`} {...product} />
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Recently Viewed Section */}
+                {recentlyViewed.length > 0 && debouncedSearch === "" && selectedCategory === "All" && (
+                    <div className="mb-24">
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="p-3 bg-cerulean-500/20 rounded-xl text-cerulean-400">
+                                <RotateCcw className="h-6 w-6" />
+                            </div>
+                            <div>
+                                <h2 className="text-3xl font-bold text-white tracking-tight">Your History</h2>
+                                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1 font-bold">Products you recently explored</p>
+                            </div>
+                        </div>
+                        <div className="flex gap-8 overflow-x-auto pb-8 no-scrollbar">
+                            {recentlyViewed.map(product => (
+                                <div key={`recent-${product.id}`} className="w-80 flex-shrink-0">
+                                    <ProductCard {...product} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Main Grid */}
                 <div className="mb-20">
-                    <div className="flex items-center gap-2 mb-8">
-                        <div className="h-2 w-2 rounded-full bg-cerulean-500 animate-pulse" />
-                        <h2 className="text-2xl font-bold text-white">Trending Sustainable Brands</h2>
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                        {trendingBrands.map((brand) => (
-                            <button
-                                key={brand.name}
-                                onClick={() => setSearchTerm(brand.name)}
-                                className="group p-6 rounded-3xl bg-white/5 border border-white/5 hover:bg-cerulean-500/10 hover:border-cerulean-500/30 transition-all duration-300 text-left"
-                            >
-                                <span className="text-3xl mb-4 block group-hover:scale-110 transition-transform">{brand.icon}</span>
-                                <h3 className="text-white font-bold mb-1">{brand.name}</h3>
-                                <p className="text-[10px] text-gray-500 uppercase tracking-widest">{brand.description}</p>
-                            </button>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            {/* Main Grid */}
-            <div className="mb-12">
-                <div className="flex items-center justify-between mb-8">
-                    <h2 className="text-2xl font-bold text-white">
-                        {selectedCategory === "All" ? "All Products" : `${selectedCategory} Collection`}
-                        {debouncedSearch && <span className="text-gray-500 font-normal ml-3">Results for &quot;{debouncedSearch}&quot;</span>}
-                    </h2>
-                    <span className="text-sm text-gray-500 font-medium">{filteredProducts.length} items</span>
-                </div>
-
-                {loading ? (
-                    <div className="flex flex-col items-center justify-center py-32 space-y-4">
-                        <div className="w-12 h-12 border-4 border-cerulean-500 border-t-transparent rounded-full animate-spin" />
-                        <div className="text-center">
-                            <p className="text-gray-400 animate-pulse">Scanning the data bank...</p>
-                            <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-2">Checking Global Eco-Standards</p>
+                    <div className="flex items-center justify-between mb-12">
+                        <div className="flex items-baseline gap-4">
+                            <h2 className="text-3xl font-bold text-white tracking-tight">
+                                {selectedCategory === "All" ? "Collection Library" : `${selectedCategory} Collection`}
+                            </h2>
+                            <span className="text-gray-500 font-bold uppercase tracking-widest text-[10px]">{filteredProducts.length} Sustainable Finds</span>
                         </div>
+                        {debouncedSearch && (
+                            <span className="text-sm bg-white/5 px-4 py-2 rounded-full border border-white/10 text-gray-400">
+                                Results for <span className="text-white font-bold">"{debouncedSearch}"</span>
+                            </span>
+                        )}
                     </div>
-                ) : (
-                    <motion.div
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-                    >
-                        {filteredProducts.slice(0, visibleCount).map(product => (
-                            <motion.div key={product.id} variants={itemVariants}>
-                                <ProductCard {...product} />
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                )}
 
-                {filteredProducts.length > visibleCount && !loading && (
-                    <div className="flex justify-center mt-12 pb-12">
-                        <Button
-                            variant="secondary"
-                            onClick={() => setVisibleCount(prev => prev + 8)}
-                            className="px-8 border-white/10 hover:border-cerulean-500/50 transition-colors"
+                    {loading ? (
+                        <div className="flex flex-col items-center justify-center py-40 space-y-6">
+                            <div className="w-16 h-16 border-4 border-cerulean-500 border-t-transparent rounded-full animate-spin shadow-[0_0_30px_rgba(80,151,175,0.3)]" />
+                            <div className="text-center">
+                                <p className="text-white font-bold uppercase tracking-[0.3em] text-xs">Accessing Data Bank</p>
+                                <p className="text-[10px] text-gray-600 uppercase tracking-widest mt-2 animate-pulse">Scanning Global Transparency Reports</p>
+                            </div>
+                        </div>
+                    ) : (
+                        <motion.div
+                            layout
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10"
                         >
-                            Load More Sustainable Finds
-                        </Button>
-                    </div>
-                )}
+                            <AnimatePresence>
+                                {filteredProducts.slice(0, visibleCount).map(product => (
+                                    <motion.div
+                                        key={product.id}
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        <ProductCard {...product} />
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
+                    )}
 
-                {!loading && filteredProducts.length === 0 && (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="text-center py-32 bg-white/5 rounded-3xl border border-dashed border-white/10"
-                    >
-                        <div className="mx-auto w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6">
-                            <Search className="h-8 w-8 text-gray-600" />
-                        </div>
-                        <h3 className="text-xl font-bold text-white mb-2">No products found</h3>
-                        <p className="text-gray-500 max-w-xs mx-auto mb-8">We couldn&apos;t find any sustainable finds matching your current filters.</p>
-                        <div className="flex justify-center gap-4">
+                    {filteredProducts.length > visibleCount && !loading && (
+                        <div className="flex justify-center mt-20">
                             <Button
-                                variant="ghost"
-                                onClick={() => { setSearchTerm(""); setSelectedCategory("All"); }}
-                                className="hover:bg-white/5"
+                                variant="secondary"
+                                onClick={() => setVisibleCount(prev => prev + 8)}
+                                className="px-12 py-6 text-lg !rounded-2xl border-white/10 hover:border-cerulean-500/50 hover:bg-white/5 transition-all shadow-xl"
                             >
-                                Clear All Filters
+                                Explore More Findings
                             </Button>
-                            <Link href="/add-product">
-                                <Button className="bg-cerulean-500">Add a New Product</Button>
-                            </Link>
                         </div>
-                    </motion.div>
-                )}
+                    )}
+
+                    {!loading && filteredProducts.length === 0 && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="text-center py-40 bg-white/[0.02] rounded-[40px] border border-dashed border-white/10 backdrop-blur-sm"
+                        >
+                            <div className="mx-auto w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-8">
+                                <Search className="h-10 w-10 text-gray-600" />
+                            </div>
+                            <h3 className="text-3xl font-bold text-white mb-3">No findings match</h3>
+                            <p className="text-gray-500 max-w-sm mx-auto mb-10 text-lg">We couldn't find any sustainable products matching your current discovery filters.</p>
+                            <div className="flex justify-center gap-4">
+                                <Button
+                                    variant="secondary"
+                                    onClick={() => { setSearchTerm(""); setSelectedCategory("All"); }}
+                                    className="!rounded-xl px-8"
+                                >
+                                    Reset Discovery
+                                </Button>
+                                <Link href="/add-product">
+                                    <Button className="bg-cerulean-500 !rounded-xl px-8 shadow-xl shadow-cerulean-500/20">Contribute Findings</Button>
+                                </Link>
+                            </div>
+                        </motion.div>
+                    )}
+                </div>
             </div>
         </div>
     );
